@@ -1,0 +1,14 @@
+node_modules/
+.vscode/
+Dockerfile
+docker-compose.yml
+.DS_Store/
+.bundle/
+.circleci/
+.github/
+.heroku/
+tmp/
+doc/
+log/
+.git/
+.gitignore

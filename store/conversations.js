@@ -1,7 +1,6 @@
-import { firestoreAction } from 'vuexfire'
-import _ from 'lodash'
-
 import Vue from 'vue'
+import { firestoreAction } from 'vuexfire'
+
 export const state = () => ({
 
 })

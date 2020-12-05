@@ -4,7 +4,7 @@
       <span class="font-bold text-24 mb-20">
         Chat Layout
       </span>
-      <ConversationList />
+      <ConversationList class="border" />
     </div>
     <NuxtChild class="w-3/4" />
   </div>
