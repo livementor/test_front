@@ -1,0 +1,70 @@
+<template>
+  <div class="p-10 text-center items-center content-center">
+    <p class="heading text-24 mb-10">
+      Bienvenue sur le test technique front de Livementor
+    </p>
+    <p class="text-gray-text text-16 mb-3">
+      {{ getSubtitle }}
+    </p>
+    <div v-if="shouldLogin || shouldRegister" class="w-64 m-auto">
+      <input v-model="email"
+             type="text"
+             class="m-auto rounded-full w-full"
+             placeholder="email"
+      >
+      <input v-model="password" type="password" class="m-auto mt-2 rounded-full w-full" placeholder="password">
+      <Button :text="shouldLogin ? 'Login' : 'Register' " class="w-full mt-2" @click.native="buttonClicked()" />
+    </div>
+    <div class="w-64 m-auto">
+      <Button v-if="!shouldLogin" text="Login" class="w-full mt-2" @click.native="shouldRegister = false; shouldLogin = true" />
+      <Button v-if="!shouldRegister" text="SignUp" class="w-full mt-2" @click.native="shouldRegister = true; shouldLogin = false" />
+    </div>
+  </div>
+</template>
+
+<script>
+import { NotificationType } from '@/models/notification'
+
+export default {
+  data: () => {
+    return {
+      email: '',
+      displayName: '',
+      password: '',
+      shouldLogin: false,
+      shouldRegister: false,
+    }
+  },
+  computed: {
+    getSubtitle () {
+      if (!this.shouldLogin && !this.shouldRegister) {
+        return this.$t('login.default')
+      }
+      return this.shouldLogin ? this.$t('login.login') : this.$t('login.register')
+    },
+  },
+  methods: {
+    buttonClicked () {
+      if (this.shouldRegister) {
+        this.$fire.auth.createUserWithEmailAndPassword(this.email, this.password).then((response) => {
+          if (response.user) {
+            this.$store.dispatch('users/setAuthUser', response.user.uid)
+            this.$router.replace('/chat')
+          }
+        }).catch((e) => {
+          this.$store.dispatch('showNotification', { message: e.message, type: NotificationType.ERROR })
+        })
+      } else {
+        this.$fire.auth.signInWithEmailAndPassword(this.email, this.password).then((response) => {
+          if (response.user) {
+            this.$store.dispatch('users/setAuthUser', response.user.uid)
+            this.$router.replace('/chat')
+          }
+        }).catch((e) => {
+          this.$store.dispatch('showNotification', { message: e.message, type: NotificationType.ERROR })
+        })
+      }
+    },
+  },
+}
+</script>

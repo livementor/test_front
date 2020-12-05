@@ -1,0 +1,27 @@
+version: "2"
+syncs:
+  test_app_sync:
+    notify_terminal: true
+    src: "."
+    sync_excludes:
+      [
+        ".git",
+        ".idea",
+        ".nuxt",
+        "node_modules",
+        ".docker-sync",
+        ".*/sass-cache",
+        ".DS_Store",
+        ".editorconfig",
+        ".github",
+      ]
+    sync_host_port: 10872
+    sync_strategy: "native_osx"
+    watch_excludes:
+      [
+        ".*/.git",
+        ".*/node_modules",
+        ".*/sass-cache",
+        ".gitignore",
+        ".docker-sync/daemon.log",
+      ]

@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  test_app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      HOST: 0.0.0.0
+    volumes:
+      - /var/app/node_modules
+      - test_app_sync:/var/app/:nocopy
+
+volumes:
+  test_app_sync:
+    external: true
