@@ -75,7 +75,7 @@ In this project you have everything you need to build a chat interface. _Don't s
 
 Start by launching the project and go to localhost:3000 in your navigator. You should log in to create your user and your first conversation (the conversation and some messages are auto generated). 
 
-Now your job is to retrieve list of conversation where you are a participant and show this list. 
+Now your job is to retrieve list of conversations where you are a participant and show this list. 
 
 When you click on a conversation item you should load in the right part of your window the messages of the selected conversation.
 
@@ -83,6 +83,10 @@ We only expect to be able to visualise the conversations and the messages.
 You can add everything you want to show your skills.
 
 For exemple you can add an input to send messages.
+
+Here is an example of what you can create : 
+![Sample]
+(https://github.com/livementor/test_front/blob/main/Sample%20screen/Screenshot%202020-12-06%20at%2014.57.43.png)
 
 # Delivery
 
