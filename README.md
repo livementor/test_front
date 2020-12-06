@@ -58,6 +58,16 @@ Message collection ({conversationId}/messages)
   "createdAt: 1607260362155
 }
 ```
+
+# Project structure 
+
+This project is build with vue.js and [nuxt.js](https://nuxtjs.org/)
+We voluntarily mix typescript and javascript in this project to allow you to use whichever language you prefer. 
+
+The store is already structured but you can modify it however you want.
+
+The stylesheet from [mikado](https://mikado.livementor.com) is already imported you can use it or use something else. 
+
 # Goal
 
 In this project you have everything you need to build a chat interface.
@@ -72,6 +82,12 @@ We only expect to be able to visualise the conversations and the messages.
 You can add everything you want to show your skills.
 
 For exemple you can add an input to send messages.
+
+# Delivery
+
+Create a new branch named "your_name"\_test on this repository
+When you are done, just create a pull request and ask for a review. 
+
 
 
 
