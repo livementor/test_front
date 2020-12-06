@@ -1,4 +1,10 @@
-# test-lm-1
+# test Front Livementor
+
+LiveMentor a connu une croissance très rapide lors de l’année 2020 (x2, en étant rentables toute l’année).
+Cette croissance, nous ne voulons pas l’avoir si elle se traduit par une baisse de la qualité. 
+Notre conviction est que la qualité du produit dépend de la qualité des personnes, qui dépend elle-même du temps qu’on peut leur consacrer dans la formation, sur leur job, en faisant avec eux. 
+C’est jouable si l’équilibre entre les personnes capables de former et celles à former est maintenu. D’où notre investissement sur des tests techniques de ce type. La croissance rapide consiste à former les personnes à l’échelle. 
+C’est pour cela que le système lean est clef pour nous, car il s’agit d’un système de formation.
 
 ## Build Setup
 
@@ -90,6 +96,7 @@ Here is an example of what you can create :
 # Delivery
 
 Create a new branch named "your_name"\_test on this repository
+
 When you are done, just create a pull request and ask for a review. 
 
 
