@@ -85,8 +85,7 @@ You can add everything you want to show your skills.
 For exemple you can add an input to send messages.
 
 Here is an example of what you can create : 
-![Sample]
-(https://github.com/livementor/test_front/blob/main/Sample%20screen/Screenshot%202020-12-06%20at%2014.57.43.png)
+![Sample](https://github.com/livementor/test_front/blob/main/Sample%20screen/Screenshot%202020-12-06%20at%2014.57.43.png)
 
 # Delivery
 
