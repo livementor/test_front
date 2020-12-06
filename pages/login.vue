@@ -1,7 +1,7 @@
 <template>
   <div class="p-10 text-center items-center content-center">
     <p class="heading text-24 mb-10">
-      Bienvenue sur le test technique front de Livementor
+      {{ $t('login.welcome') }}
     </p>
     <p class="text-gray-text text-16 mb-3">
       {{ getSubtitle }}
@@ -10,14 +10,14 @@
       <input v-model="email"
              type="text"
              class="m-auto rounded-full w-full"
-             placeholder="email"
+             :placeholder="$t('login.emailPlaceholder')"
       >
-      <input v-model="password" type="password" class="m-auto mt-2 rounded-full w-full" placeholder="password">
-      <Button :text="shouldLogin ? 'Login' : 'Register' " class="w-full mt-2" @click.native="buttonClicked()" />
+      <input v-model="password" type="password" class="m-auto mt-2 rounded-full w-full" :placeholder="$t('login.passwordPlaceholder')">
+      <Button :text="shouldLogin ? $t('login.loginButton') : $t('login.registerButton') " class="w-full mt-2" @click.native="buttonClicked()" />
     </div>
     <div class="w-64 m-auto">
-      <Button v-if="!shouldLogin" text="Login" class="w-full mt-2" @click.native="shouldRegister = false; shouldLogin = true" />
-      <Button v-if="!shouldRegister" text="SignUp" class="w-full mt-2" @click.native="shouldRegister = true; shouldLogin = false" />
+      <Button v-if="!shouldLogin" :text="$t('login.loginButton')" class="w-full mt-2" @click.native="shouldRegister = false; shouldLogin = true" />
+      <Button v-if="!shouldRegister" :text="$t('login.registerButton')" class="w-full mt-2" @click.native="shouldRegister = true; shouldLogin = false" />
     </div>
   </div>
 </template>

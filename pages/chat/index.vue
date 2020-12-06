@@ -1,6 +1,6 @@
 <template>
   <div>
-    Pas de conversation sélécitonnée
+    {{ $t('chat.noConversation') }}
   </div>
 </template>
 

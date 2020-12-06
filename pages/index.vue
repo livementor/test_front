@@ -9,7 +9,7 @@
       </p>
     </div>
     <NuxtLink to="/login" class="m-auto mt-16">
-      <Button text="Start" />
+      <Button :text="$t('home.start')" />
     </NuxtLink>
   </div>
 </template>
