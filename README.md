@@ -61,7 +61,8 @@ Message collection ({conversationId}/messages)
 
 # Project structure 
 
-This project is build with vue.js and [nuxt.js](https://nuxtjs.org/)
+This project is build with [vue.js](https://vuejs.org/) and [nuxt.js](https://nuxtjs.org/)
+
 We voluntarily mix typescript and javascript in this project to allow you to use whichever language you prefer. 
 
 The store is already structured but you can modify it however you want.
