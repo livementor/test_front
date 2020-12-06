@@ -71,7 +71,7 @@ The stylesheet from [mikado](https://livementor.github.io/mikado/) is already im
 
 # Goal
 
-In this project you have everything you need to build a chat interface.
+In this project you have everything you need to build a chat interface. _Don't spend more than three hours on this. 
 
 Start by launching the project and go to localhost:3000 in your navigator. You should log in to create your user and your first conversation (the conversation and some messages are auto generated). 
 
