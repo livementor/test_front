@@ -66,7 +66,7 @@ We voluntarily mix typescript and javascript in this project to allow you to use
 
 The store is already structured but you can modify it however you want.
 
-The stylesheet from [mikado](https://mikado.livementor.com) is already imported you can use it or use something else. 
+The stylesheet from [mikado](https://livementor.github.io/mikado/) is already imported you can use it or use something else. 
 
 # Goal
 
