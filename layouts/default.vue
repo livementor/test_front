@@ -2,7 +2,7 @@
   <div>
     <HeaderComponent />
     <GlobalNotification v-if="getNotification !== undefined" :notification="getNotification" />
-    <Nuxt />
+    <Nuxt class="main" />
   </div>
 </template>
 
@@ -20,3 +20,8 @@ export default Vue.extend({
 
 })
 </script>
+<style scoped>
+.main {
+  min-height: calc(100vh - 64px );
+}
+</style>

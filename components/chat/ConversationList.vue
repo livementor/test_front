@@ -34,7 +34,7 @@ import { Getter } from 'vuex-class'
 export default class ConversationList extends Vue {
   @Getter('conversations/getConversations') getConversations: any
 
-  get conversations() {
+  get conversations () {
     if (!this.$fire.auth.currentUser) {
       return []
     }

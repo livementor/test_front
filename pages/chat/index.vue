@@ -1,6 +1,8 @@
 <template>
-  <div>
-    {{ $t('chat.noConversation') }}
+  <div class="flex flex-row items-start pt-10">
+    <div class="p-8 mx-auto bg-white rounded-xl shadow-sm">
+      <span class="font-semibold">{{ $t('chat.noConversation') }}</span>
+    </div>
   </div>
 </template>
 

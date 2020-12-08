@@ -10,7 +10,3 @@ export default class ConversationRoot extends Vue {
 
 }
 </script>
-
-<style scoped>
-
-</style>
