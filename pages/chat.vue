@@ -2,7 +2,7 @@
   <div class="flex">
     <div class="w-1/4">
       <span class="font-bold text-24 mb-20">
-        Chat Layout
+        Messages
       </span>
       <ConversationList class="border" />
     </div>
