@@ -14,7 +14,7 @@ export const mutations = {
     if (ctx.authUser) {
       const { uid, email, displayName, photoURL } = ctx.authUser
       const user = new User(uid, 'username', displayName || 'name', email || '', photoURL || 'avatar_url')
-      state.authUser = user.id
+      state.authUser = user
       Vue.set(this, user.id, user)
     }
   },
@@ -31,8 +31,10 @@ export const mutations = {
 }
 
 export const actions = {
-  setAuthUser (store: any, id: string) {
-    store.commit('SET_AUTH_USER', id)
+  async setAuthUser (store: any, id: string) {
+    const doc = await (this as any).$fire.firestore.collection('users').doc(id).get()
+    const user = new User(doc.uid, 'username', doc.displayName || 'name', doc.email || '', doc.photoURL || 'avatar_url')
+    store.commit('SET_AUTH_USER', user)
   },
   async onAuthStateChangedAction (store : any, ctx: any) {
     if (!process.client) {
