@@ -20,7 +20,7 @@ export default class MessageList extends Vue {
   get messages () {
     if (!this.$fire.auth.currentUser) {
       return []
-    }    
+    }
     this.$store.dispatch('messages/fetchMessagesForConversation', this.conversationId)
     return this.getMessagesForConversation(this.conversationId) as Message[]
   }

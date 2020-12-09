@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="(conversation, index) in conversations" :key="index">
-      <ConversationItem v-bind:conversation="conversation"/>
+      <ConversationItem v-bind:conversation="conversation" />
     </div>
   </div>
 </template>
@@ -19,7 +19,7 @@ export default class ConversationList extends Vue {
     if (!this.$fire.auth.currentUser) {
       return []
     }
-    return this.getConversations as Conversation[];
+    return this.getConversations as Conversation[]
   }
 }
 </script>

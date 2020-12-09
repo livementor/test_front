@@ -48,12 +48,10 @@ export const actions = {
       return
     }
     const ref = await this.$fire.firestore.collection('conversations').where('participants', 'array-contains', this.$fire.auth.currentUser.uid).get()
-
-    const conversations = ref.docs.map((r) => {
-      this.commit('conversations/SET_CONVERSATION', { id: r.id, conversation: r.data() })
-      return bindFirestoreRef(r.id, r.ref, { wait: true })
+    const conversations = ref.docs.map((conversation) => {
+      this.commit('conversations/SET_CONVERSATION', { id: conversation.id, conversation: conversation.data() })
+      return bindFirestoreRef(conversation.id, conversation.ref, { wait: true })
     })
-
     await Promise.all(conversations)
   }),
 }

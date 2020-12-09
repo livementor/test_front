@@ -8,7 +8,6 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import { Getter } from 'vuex-class'
 import { Conversation } from '~/models/conversation'
 
 @Component

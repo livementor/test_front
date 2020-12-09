@@ -45,6 +45,9 @@ export const getters = {
       return null
     }
     const conversation = rootState.conversations[conversationId]
+    if (conversation === undefined) {
+      return null
+    }
     return _.orderBy(
       Object.values(_.pick(state, conversation.messages)),
       ['created_at'],
