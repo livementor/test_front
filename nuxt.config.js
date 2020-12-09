@@ -14,10 +14,14 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'stylesheet', href: 'https://d1myxu64ohxs53.cloudfront.net/mikado/edge/css/mikado.min.css' },
     ],
+    script: [
+      //{ src: 'http://localhost:8098' }
+    ]
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
+    '~/global.css',
   ],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
