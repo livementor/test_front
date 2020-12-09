@@ -2,6 +2,7 @@
   <div>
     <span>
       Conversation séléctionné {{ $route.params.id }}
+      <MessageList v-bind:conversationId="$route.params.id"/>
     </span>
   </div>
 </template>

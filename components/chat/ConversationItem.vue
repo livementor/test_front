@@ -12,8 +12,7 @@ import { Getter } from 'vuex-class'
 import { Conversation } from '~/models/conversation'
 
 @Component
-export default class ConversationListItem extends Vue {
+export default class ConversationItem extends Vue {
   @Prop() conversation!: Conversation
-  @Getter('users/getUser') getCorrespondant:any
 }
 </script>
