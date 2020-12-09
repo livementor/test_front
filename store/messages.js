@@ -9,7 +9,6 @@ export const state = () => ({
 export const mutations = {
   SET_MESSAGES: (state, payload) => {
     const messages = _.keyBy(payload.messages, 'id')
-
     Vue.set(state, payload.id, messages)
   },
 }

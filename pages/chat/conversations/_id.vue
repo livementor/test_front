@@ -1,7 +1,7 @@
 <template>
   <div>
     <span>
-      <MessageList v-bind:conversationId="$route.params.id" />
+      <MessageList :conversationId="$route.params.id" />
     </span>
   </div>
 </template>

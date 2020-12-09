@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="(conversation, index) in conversations" :key="index">
-      <ConversationItem v-bind:conversation="conversation" />
+      <ConversationItem :conversation="conversation" />
     </div>
   </div>
 </template>

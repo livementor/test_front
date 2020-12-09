@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="(message, index) in messages" :key="index">
-        <MessageItem v-bind:message="message"/>
+      <MessageItem :message="message" />
     </div>
   </div>
 </template>
@@ -9,7 +9,6 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import { Getter } from 'vuex-class'
-import { Conversation } from '~/models/conversation'
 import { Message } from '~/models/message'
 
 @Component
@@ -21,7 +20,7 @@ export default class MessageList extends Vue {
     if (!this.$fire.auth.currentUser) {
       return []
     }
-    this.$store.dispatch('messages/fetchMessagesForConversation', this.conversationId)
+    this.$store.dispatch('messages/fetchMessagesForConversation', this.$route.params.id)
     return this.getMessagesForConversation(this.conversationId) as Message[]
   }
 }
