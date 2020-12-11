@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import { firestoreAction } from 'vuexfire'
 
 export const state = () => ({
 
@@ -19,7 +18,7 @@ export const mutations = {
 }
 
 export const actions = {
-  createConversation: firestoreAction(async function ({ bindFirestoreRef }, conversation) {
+  createConversation (conversation) {
     if (!this.$fire.auth.currentUser) {
       return
     }
@@ -31,31 +30,26 @@ export const actions = {
     this.dispatch('messages/createMessage', { conversationId: ref.id, message: { author: 'bmAaBLtmpHYqHDOH875oVsVNbhV2', text: 'Bonjour' } }, { root: true })
     this.dispatch('messages/createMessage', { conversationId: ref.id, message: { author: this.$fire.auth.currentUser.uid, text: 'Bonjour' } }, { root: true })
     this.commit('conversations/SET_CONVERSATION', { id: ref.id, conversation: ref })
-    await bindFirestoreRef(ref.id, ref, { wait: true })
-  }),
+  },
 
-  fetchConversations: firestoreAction(async function ({ bindFirestoreRef }) {
+  async fetchConversations () {
     const ref = await this.$fire.firestore.collection('conversations').get()
-    const conversations = ref.docs.map((conversation) => {
-      this.commit('conversations/SET_CONVERSATION', { id: conversation.id, conversation: conversation.data() })
-      return bindFirestoreRef(conversation.id, conversation.ref, { wait: true })
-    })
-    await Promise.all(conversations)
-  }),
 
-  fetchConversationsForCurrentUser: firestoreAction(async function ({ bindFirestoreRef }) {
+    ref.docs.forEach((conversation) => {
+      this.commit('conversations/SET_CONVERSATION', { id: conversation.id, conversation: conversation.data() })
+    })
+  },
+
+  async fetchConversationsForCurrentUser () {
     if (!this.$fire.auth.currentUser) {
       return
     }
     const ref = await this.$fire.firestore.collection('conversations').where('participants', 'array-contains', this.$fire.auth.currentUser.uid).get()
 
-    const conversations = ref.docs.map((r) => {
-      this.commit('conversations/SET_CONVERSATION', { id: r.id, conversation: r.data() })
-      return bindFirestoreRef(r.id, r.ref, { wait: true })
+    ref.docs.forEach((conversation) => {
+      this.commit('conversations/SET_CONVERSATION', { id: conversation.id, conversation: conversation.data() })
     })
-
-    await Promise.all(conversations)
-  }),
+  },
 }
 
 export const getters = {
