@@ -3,51 +3,54 @@
     <div class="text-gray-500 font-bold my-4 text-2xl text-center">
       Conversations
     </div>
-    <div class="items">
+    <ul class="items">
       <NuxtLink
         v-for="(conversation, index) in conversations"
         :key="`conversation-${conversation.id}`"
         :to="`/chat/conversations/${conversation.id}`"
+        v-slot="{ href, navigate, isActive }"
       >
-        <div
-          :class="[
-            'items__tile flex items-center p-6 bg-white rounded-l-full',
-            {
-              'hover:bg-gray-100': conversation.id !== currentRouteId,
-              'rounded-br-full':
-                conversations[index + 1] &&
-                conversations[index + 1].id === currentRouteId,
-              'items__tile--active bg-indigo-100':
-                conversation.id === currentRouteId,
-              'rounded-tr-full':
-                conversations[index - 1] &&
-                conversations[index - 1].id === currentRouteId,
-            },
-          ]"
-        >
-          <template v-if="conversation.participants.length === 1">
-            <div class="rounded-full overflow-hidden w-16 self-start">
-              <img :src="conversation.participants[0].photoURL || 'https://via.placeholder.com/150'">
-            </div>
-            <div class="mx-4 flex-1 overflow-hidden">
-              <div
-                class="text-gray-700 font-bold"
-                v-text="conversation.participants[0].displayName || conversation.participants[0].email"
-              />
-              <div v-if="conversation.lastMessage" class="text-gray-600">
-                <div class="flex-1 truncate">
-                  <span v-if="conversation.lastMessage.author === authUser.id">
-                    {{ $t('chat.you') }} :
-                  </span>
-                  {{ conversation.lastMessage.text }}
+        <li>
+          <a
+            :href="href" @click="navigate"
+            :class="[
+              'items__tile flex items-center p-6 bg-white rounded-l-full',
+              {
+                'hover:bg-gray-100': !isActive,
+                'rounded-br-full':
+                  conversations[index + 1] &&
+                  conversations[index + 1].id === currentRouteId,
+                'items__tile--active bg-indigo-100': isActive,
+                'rounded-tr-full':
+                  conversations[index - 1] &&
+                  conversations[index - 1].id === currentRouteId,
+              },
+            ]"
+          >
+            <template v-if="conversation.participants.length === 1">
+              <div class="rounded-full overflow-hidden w-16 self-start">
+                <img :src="conversation.participants[0].photoURL || 'https://via.placeholder.com/150'">
+              </div>
+              <div class="mx-4 flex-1 overflow-hidden">
+                <div
+                  class="text-gray-700 font-bold"
+                  v-text="conversation.participants[0].displayName || conversation.participants[0].email"
+                />
+                <div v-if="conversation.lastMessage" class="text-gray-600">
+                  <div class="flex-1 truncate">
+                    <span v-if="conversation.lastMessage.author === authUser.id">
+                      {{ $t('chat.you') }} :
+                    </span>
+                    {{ conversation.lastMessage.text }}
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="text-gray-600" v-text="conversation.timeDistance" />
-          </template>
-        </div>
+              <div class="text-gray-600" v-text="conversation.timeDistance" />
+            </template>
+          </a>
+        </li>
       </NuxtLink>
-    </div>
+    </ul>
   </div>
 </template>
 
