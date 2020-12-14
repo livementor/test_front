@@ -1,0 +1,2 @@
+export const SET_CONVERSATION_ID = 'SET_CONVERSATION_ID'
+export const SET_USER = 'SET_USER'

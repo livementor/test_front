@@ -10,9 +10,12 @@
   },
   "dependencies": {
     "@nuxtjs/firebase": "^7.1.1",
+    "@types/chance": "^1.1.1",
     "@typescript-eslint/parser": "^4.8.2",
     "babel-plugin-transform-decorators": "^6.24.1",
+    "chance": "^1.1.7",
     "core-js": "^3.6.5",
+    "date-fns": "^2.16.1",
     "eslint": "^7.14.0",
     "eslint-plugin-nuxt": "^2.0.0",
     "firebase": "^8.1.1",

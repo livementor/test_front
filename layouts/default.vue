@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <HeaderComponent />
+  <div class="flex flex-col h-screen">
     <GlobalNotification v-if="getNotification !== undefined" :notification="getNotification" />
+    <HeaderComponent />
     <Nuxt />
   </div>
 </template>

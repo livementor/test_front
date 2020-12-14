@@ -44,25 +44,17 @@ export default {
     },
   },
   methods: {
-    buttonClicked () {
-      if (this.shouldRegister) {
-        this.$fire.auth.createUserWithEmailAndPassword(this.email, this.password).then((response) => {
-          if (response.user) {
-            this.$store.dispatch('users/setAuthUser', response.user.uid)
-            this.$router.replace('/chat')
-          }
-        }).catch((e) => {
-          this.$store.dispatch('showNotification', { message: e.message, type: NotificationType.ERROR })
-        })
-      } else {
-        this.$fire.auth.signInWithEmailAndPassword(this.email, this.password).then((response) => {
-          if (response.user) {
-            this.$store.dispatch('users/setAuthUser', response.user.uid)
-            this.$router.replace('/chat')
-          }
-        }).catch((e) => {
-          this.$store.dispatch('showNotification', { message: e.message, type: NotificationType.ERROR })
-        })
+    async buttonClicked () {
+      try {
+        const response = await this.$fire.auth[
+          this.shouldRegister ? 'createUserWithEmailAndPassword' : 'signInWithEmailAndPassword'
+        ](this.email, this.password)
+        if (response.user) {
+          this.$store.dispatch('users/setAuthUser', response.user.uid)
+          this.$router.replace('/chat')
+        }
+      } catch (e) {
+        this.$store.dispatch('showNotification', { message: e.message, type: NotificationType.ERROR })
       }
     },
   },

@@ -1,12 +1,9 @@
 <template>
-  <div class="flex">
+  <div class="flex flex-1 p-8 overflow-hidden">
     <div class="w-1/4">
-      <span class="font-bold text-24 mb-20">
-        Chat Layout
-      </span>
-      <ConversationList class="border" />
+      <ConversationList />
     </div>
-    <NuxtChild class="w-3/4" />
+    <NuxtChild :key="$route.params.id" class="w-3/4" />
   </div>
 </template>
 
@@ -17,8 +14,8 @@ import { Component, Vue, Watch } from 'vue-property-decorator'
 export default class Chat extends Vue {
   @Watch('$store.state.users.authUser', { immediate: true })
   onChange (value: any) {
-    if (value !== null && value !== undefined && value !== '') {
-      this.$store.dispatch('conversations/fetchConversationsForCurrentUser')
+    if (value) {
+      this.$store.dispatch('chat/bindUserConversations')
     }
   }
 }
