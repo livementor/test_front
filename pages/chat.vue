@@ -1,9 +1,9 @@
 <template>
   <div class="flex flex-1 p-8 overflow-hidden">
-    <div class="w-1/4">
+    <div class="lg:w-2/5 xl:w-2/6 overflow-auto">
       <ConversationList />
     </div>
-    <NuxtChild :key="$route.params.id" class="w-3/4" />
+    <NuxtChild :key="$route.params.id" class="lg:w-3/5 xl:w-4/6" />
   </div>
 </template>
 
