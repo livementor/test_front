@@ -5,7 +5,6 @@ export default {
     state.currentConversationId = conversationId
   },
   [SET_USER]: (state, payload) => {
-    // TODO
     state.users = {
       ...state.users,
       [payload.id]: payload.data,
