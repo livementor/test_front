@@ -28,9 +28,9 @@ import { NotificationType } from '@/models/notification'
 export default {
   data: () => {
     return {
-      email: '',
+      email: 'corentin@delia-solutions.com',
       displayName: '',
-      password: '',
+      password: 'P@ssw0rd',
       shouldLogin: false,
       shouldRegister: false,
     }

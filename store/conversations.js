@@ -18,17 +18,17 @@ export const mutations = {
 }
 
 export const actions = {
-  createConversation (conversation) {
+  async createConversation (store, { title }) {
     if (!this.$fire.auth.currentUser) {
       return
     }
     const ref = this.$fire.firestore.collection('conversations').doc()
-    conversation.participants = [this.$fire.auth.currentUser.uid, 'bmAaBLtmpHYqHDOH875oVsVNbhV2']
-    conversation.id = ref.id
-    ref.set(conversation)
-
-    this.dispatch('messages/createMessage', { conversationId: ref.id, message: { author: 'bmAaBLtmpHYqHDOH875oVsVNbhV2', text: 'Bonjour' } }, { root: true })
-    this.dispatch('messages/createMessage', { conversationId: ref.id, message: { author: this.$fire.auth.currentUser.uid, text: 'Bonjour' } }, { root: true })
+    await ref.set({
+      participants: [this.$fire.auth.currentUser.uid, 'bmAaBLtmpHYqHDOH875oVsVNbhV2'],
+      title,
+    })
+    await store.dispatch('messages/createMessage', { conversationId: ref.id, message: { author: 'bmAaBLtmpHYqHDOH875oVsVNbhV2', text: 'Bonjour' } }, { root: true })
+    await store.dispatch('messages/createMessage', { conversationId: ref.id, message: { author: this.$fire.auth.currentUser.uid, text: 'Bonjour' } }, { root: true })
     this.commit('conversations/SET_CONVERSATION', { id: ref.id, conversation: ref })
   },
 
@@ -44,8 +44,8 @@ export const actions = {
     if (!this.$fire.auth.currentUser) {
       return
     }
-    const ref = await this.$fire.firestore.collection('conversations').where('participants', 'array-contains', this.$fire.auth.currentUser.uid).get()
 
+    const ref = await this.$fire.firestore.collection('conversations').where('participants', 'array-contains', this.$fire.auth.currentUser.uid).get()
     ref.docs.forEach((conversation) => {
       this.commit('conversations/SET_CONVERSATION', { id: conversation.id, conversation: conversation.data() })
     })

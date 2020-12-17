@@ -4,4 +4,4 @@ interface IModel {
   id: ObjectId;
 }
 
-export { IModel };
+export { IModel }
