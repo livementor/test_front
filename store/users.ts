@@ -4,9 +4,11 @@ import { User } from '../models/user'
 
 export const state = () => ({
   authUser: undefined,
+  user: {},
 })
 
 export const getters = {
+  user: (state: any) => state.user,
 }
 
 export const mutations = {
@@ -15,6 +17,7 @@ export const mutations = {
       const { uid, email, displayName, photoURL } = ctx.authUser
       const user = new User(uid, 'username', displayName || 'name', email || '', photoURL || 'avatar_url')
       state.authUser = user.id
+      state.user = user
       Vue.set(this, user.id, user)
     }
   },

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="h-full">
     {{ $t('chat.noConversation') }}
   </div>
 </template>
@@ -8,7 +8,9 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 
-@Component
+@Component({
+  layout: 'chat',
+})
 export default class ChatRoot extends Vue {
 
 }

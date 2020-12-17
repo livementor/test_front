@@ -15,6 +15,9 @@ export const mutations = {
   SET_CONVERSATION: (state, payload) => {
     Vue.set(state, payload.id, payload.conversation)
   },
+  SET_LAST_MESSAGE: (state, payload) => {
+    state[payload.conversationId].lastMessage = payload.message
+  },
 }
 
 export const actions = {
@@ -47,7 +50,7 @@ export const actions = {
 
     const ref = await this.$fire.firestore.collection('conversations').where('participants', 'array-contains', this.$fire.auth.currentUser.uid).get()
     ref.docs.forEach((conversation) => {
-      this.commit('conversations/SET_CONVERSATION', { id: conversation.id, conversation: conversation.data() })
+      this.commit('conversations/SET_CONVERSATION', { id: conversation.id, conversation: { ...conversation.data(), lastMessage: null } })
     })
   },
 }
@@ -56,5 +59,7 @@ export const getters = {
   getConversations: (state) => {
     return state
   },
-
+  getLastMessage: state => (conversationId) => {
+    return state[conversationId].lastMessage
+  },
 }
