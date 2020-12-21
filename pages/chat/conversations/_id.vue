@@ -2,9 +2,7 @@
   <div class="conversation-container">
     <span>{{ $route.params.id }}</span>
     <div class="flex flex-col">
-        <Message v-for="(message, index) in messages"
-                 :key="index"
-                 :message="message" />
+      <Message v-for="(message, index) in messages" :key="index" :message="message" />
     </div>
     <div class="input-container">
       <input v-model="newMessage" type="text">
@@ -13,7 +11,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang='ts'>
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import { Getter } from 'vuex-class'
 
@@ -48,26 +46,22 @@ export default class Conversations extends Vue {
     )
     this.newMessage = ''
   }
-
-  isAuthor (author: any) {
-    return this.$store.state.users.authUser === author
-  }
 }
 </script>
 <style scoped>
-.conversation-container div{
+.conversation-container div {
   padding: 1rem;
 }
-.input-container{
+.input-container {
   width: 100%;
   display: flex;
   padding: 10px;
 }
-.input-container input{
+.input-container input {
   width: 100%;
   margin-right: 20px;
 }
-.conversation-container{
+.conversation-container {
   overflow: scroll;
 }
 </style>

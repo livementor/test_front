@@ -25,7 +25,7 @@ export default class ConversationList extends Vue {
   }
 
   membersText (participants: any) {
-    return participants.length + this.$t('conversationList.members')
+    return participants.length + ' ' + this.$t('conversationList.members')
   }
 }
 </script>
