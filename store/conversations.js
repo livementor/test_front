@@ -18,14 +18,18 @@ export const mutations = {
 }
 
 export const actions = {
-  createConversation (conversation) {
+  createConversation (conversation, { title }) {
     if (!this.$fire.auth.currentUser) {
       return
     }
     const ref = this.$fire.firestore.collection('conversations').doc()
-    conversation.participants = [this.$fire.auth.currentUser.uid, 'bmAaBLtmpHYqHDOH875oVsVNbhV2']
     conversation.id = ref.id
-    ref.set(conversation)
+    const newConv = {
+      participants: [this.$fire.auth.currentUser.uid, 'bmAaBLtmpHYqHDOH875oVsVNbhV2'],
+      id: ref.id,
+      title,
+    }
+    ref.set(newConv)
 
     this.dispatch('messages/createMessage', { conversationId: ref.id, message: { author: 'bmAaBLtmpHYqHDOH875oVsVNbhV2', text: 'Bonjour' } }, { root: true })
     this.dispatch('messages/createMessage', { conversationId: ref.id, message: { author: this.$fire.auth.currentUser.uid, text: 'Bonjour' } }, { root: true })

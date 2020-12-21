@@ -8,11 +8,15 @@ export default {
       return null
     }
     const conversation = rootState.conversations[conversationId]
-    return _.orderBy(
-      Object.values(_.pick(state, conversation.messages)),
-      ['created_at'],
-      ['asc'],
-    )
+    if (conversation) {
+      return _.orderBy(
+        Object.values(_.pick(state, conversation.messages)),
+        ['created_at'],
+        ['asc'],
+      )
+    } else {
+      return null
+    }
   },
   getMessageById: state => (id) => {
     return state[id]
