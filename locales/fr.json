@@ -19,6 +19,9 @@
     "start": "Start"
   },
   "chat": {
-    "noConversation": "Pas de conversation sélécitonnée"
+    "title": "Vos conversations",
+    "noConversation": "Pas de conversation séléctionnée",
+    "noExistingConversations": "Vous n'avez pas de conversations",
+    "createNew": "Nouvelle conversation"
   }
 }

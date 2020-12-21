@@ -1,27 +1,37 @@
 <template>
   <div>
-    <span>Conversations ids</span>
-    <div v-for="(id, index) in conversationsIds" :key="index">
-      <NuxtLink :to="`/chat/conversations/${id}`" class="text-blue-livementor">
-        {{ id }}
-      </NuxtLink>
+    <div v-if="conversations">
+      <div v-for="conversation in conversations" :key="conversation.id">
+        <div class="bg-gray-400 border-2">
+          <NuxtLink :to="`/chat/conversations/${conversation.id}`" class="text-blue-livementor">
+            {{ conversation.title }}
+          </NuxtLink>
+        </div>
+      </div>
+    </div>
+    <div v-else>
+      {{ $t('chat.noExistingConversations') }}
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { Getter } from 'vuex-class'
+import { Getter, Action } from 'vuex-class'
 
 @Component
 export default class ConversationList extends Vue {
   @Getter('conversations/getConversations') getConversations:any
 
-  get conversationsIds () {
+  get conversations () {
     if (!this.$fire.auth.currentUser) {
       return []
     }
-    return Object.keys(this.getConversations)
+
+    return this.getConversations
   }
+
+@Action('conversations/fetchConversationsForCurrentUser')
+  fetchConversationsForCurrentUser!: () => void
 }
 </script>
