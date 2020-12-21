@@ -1,6 +1,6 @@
 <template>
   <div class="flex-row" :class="[isFromAuthor(message.author) ? 'self-end' : 'self-start']">
-    <div class="message" :class="{'blue-background' : isFromAuthor(message.author)}">
+    <div class="message p-4 mb-4 rounded-full py-3 px-6 shadow-md" :class="{'blue-background text-white' : isFromAuthor(message.author)}">
       <span>{{ message.text }}</span>
     </div>
   </div>
@@ -24,14 +24,9 @@ export default class Message extends Props {
 </script>
 <style scoped>
 .message {
-  padding: 1rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  border-radius: 20%;
   background-color: #e9ebee;
 }
 .blue-background {
   background-color: #0078ff;
-  color: white;
 }
 </style>

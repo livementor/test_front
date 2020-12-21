@@ -1,9 +1,11 @@
 <template>
-  <div class="flex">
+  <div class="flex h-screen">
     <div class="w-1/4">
       <span class="font-bold text-24 mb-20">{{ $t('chat.listTitle') }}</span>
-      <input v-model="convTitle" type="text">
-      <Button :text="$t('chat.newConversation')" :disabled="!convTitle" @click.native="newConv" />
+      <div class="w-full flex flex-row p-2">
+        <input v-model="convTitle" class="w-full mr-10" type="text">
+        <Button :text="$t('chat.newConversation')" :disabled="!convTitle" @click.native="newConv" />
+      </div>
       <ConversationList class="border" />
     </div>
     <NuxtChild class="w-3/4" />

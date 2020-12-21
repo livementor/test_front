@@ -60,5 +60,7 @@ export const getters = {
   getConversations: (state) => {
     return state
   },
-
+  getConversation: state => (convId) => {
+    return state[convId]
+  },
 }

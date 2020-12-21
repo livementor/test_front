@@ -1,9 +1,13 @@
 <template>
-  <div>
-    <div v-for="(conversation, index) in conversations" :key="index">
+  <div class="border-b-2">
+    <div v-for="(conversation, index) in conversations" :key="index" class="p-2 hover:bg-gray-100">
       <NuxtLink :to="`/chat/conversations/${conversation.id}`" class="text-blue-livementor">
-        <span>{{ conversation.title }}</span>
-        <span>{{ membersText(conversation.participants) }}</span>
+        <p class="text-black">
+          {{ conversation.title }}
+        </p>
+        <p class="text-gray-600">
+          {{ membersText(conversation.participants) }}
+        </p>
       </NuxtLink>
     </div>
   </div>
@@ -29,8 +33,3 @@ export default class ConversationList extends Vue {
   }
 }
 </script>
-<style scoped>
-.border {
-  overflow: auto;
-}
-</style>
