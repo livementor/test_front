@@ -47,8 +47,12 @@ export const actions = {
     }
     const { uid, email, displayName, photoURL } = ctx.authUser
     const doc = await (this as any).$fire.firestore.collection('users').doc(uid).get()
+
     if (!doc.exists) {
-      store.dispatch('conversations/createConversation', { title: 'Conversation' }, { root: true })
+      // Création de plusieurs conversations
+      for (let i = 0; i < 10; i++) {
+        store.dispatch('conversations/createConversation', { title: 'Conversation' }, { root: true })
+      }
       doc.ref.set({ uid, email, displayName, photoURL })
     }
   },
