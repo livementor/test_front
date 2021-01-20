@@ -35,7 +35,7 @@ export const actions = {
       await dispatch('messages/createMessage', { conversationId: ref.id, message: { author: 'bmAaBLtmpHYqHDOH875oVsVNbhV2', text: 'Bonjour' } }, { root: true })
       await dispatch('messages/createMessage', { conversationId: ref.id, message: { author: this.$fire.auth.currentUser.uid, text: 'Bonjour' } }, { root: true })
       await commit('conversations/SET_CONVERSATION', { id: ref.id, conversation: ref })
-      // this.dispatch('showNotification', { message: 'Conversation created', type: 1 })
+      dispatch('showNotification', { message: 'Conversation created', type: 1 })
     } catch (e) {
       dispatch('showNotification', { message: e.message, type: 0 })
     }
