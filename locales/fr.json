@@ -22,7 +22,7 @@
     "noConversation": "Aucune conversation sélectionnée",
     "header_title": "Messages",
     "create_conversation": "Créer une conversation",
-    "selected_conversation": "Conversation séléctionnée {roomId}",
+    "selected_conversation": "Conversation séléctionnée - {roomTitle}",
     "send_message": "Envoyer"
   }
 }

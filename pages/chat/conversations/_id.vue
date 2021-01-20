@@ -1,6 +1,6 @@
 <template>
   <div class="conversations-id maz-flex maz-direction-column">
-    <RoomHeader />
+    <RoomHeader :conversation-id="currentRoom" />
     <div class="conversations-id__chat p-4 maz-flex-1">
       <MessageComponent
         v-for="(message, i) in messages"
@@ -24,18 +24,19 @@ export default class Conversations extends Vue {
   @Getter('messages/getMessagesForConversation') getMessagesForConversation!: (conversationId: string) => Array<{ id: string, createdAt: Date, author: string, text: string }>
 
   public messages: Message[] = []
-  public currentRoom = ''
+  public currentRoom: string = 'no-id'
 
   @Watch('$route', { immediate: true })
-  async onPropertyChanged (value: any, _: any) {
-    this.currentRoom = value.params.id
-    // const currentRoom = value.params.id as string
+  onPropertyChanged (value: any, _: any) {
+    this.$nextTick(async () => {
+      this.currentRoom = value.params.id
 
-    await this.fetchMessagesForConversation(value.params.id)
+      await this.fetchMessagesForConversation(value.params.id)
 
-    const roomMessage = this.getMessagesForConversation(value.params.id)
+      const roomMessage = this.getMessagesForConversation(value.params.id)
 
-    this.messages = roomMessage.map(({ id, createdAt, text, author }) => new Message(id, createdAt, author, text))
+      this.messages = roomMessage.map(({ id, createdAt, text, author }) => new Message(id, createdAt, author, text))
+    })
   }
 }
 </script>

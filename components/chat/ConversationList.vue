@@ -1,9 +1,9 @@
 <template>
   <div class="conversation-list p-4">
-    <NuxtLink v-for="({ id }, i) in conversations" :key="i" :to="`/chat/conversations/${id}`" class="conversation-list__room">
+    <NuxtLink v-for="({ id, title }, i) in conversations" :key="i" :to="`/chat/conversations/${id}`" class="conversation-list__room">
       <div class="p-4">
         <p class="maz-dots-text text-center">
-          {{ getParticipant(id) }} - Room ID : {{ id }}
+          {{ title }} - {{ getParticipant(id) }}
         </p>
       </div>
     </NuxtLink>

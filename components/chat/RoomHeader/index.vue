@@ -1,16 +1,20 @@
 <template>
   <div class="room-header w-full font-bold p-4 maz-flex-fixed">
     <p>
-      {{ $t('chat.selected_conversation', { roomId: $route.params.id }) }}
+      {{ $t('chat.selected_conversation', { roomTitle: getConversations[conversationId] && getConversations[conversationId].title ? getConversations[conversationId].title : 'Conversation' }) }}
     </p>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Getter } from 'vuex-class'
+import { Conversation } from '~/models/conversation'
 
 @Component
 export default class MessageComponent extends Vue {
+  @Prop({ required: true }) conversationId!: string
+  @Getter('conversations/getConversations') getConversations!: () => { [key: string]: Conversation }
 }
 </script>
 
