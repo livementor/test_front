@@ -7,6 +7,9 @@ export const state = () => ({
 })
 
 export const getters = {
+  getAuthUser (state: any) {
+    return state.authUser
+  },
 }
 
 export const mutations = {
@@ -34,7 +37,7 @@ export const actions = {
   setAuthUser (store: any, id: string) {
     store.commit('SET_AUTH_USER', id)
   },
-  async onAuthStateChangedAction (store : any, ctx: any) {
+  async onAuthStateChangedAction (store: any, ctx: any) {
     if (!process.client) {
       return
     }
@@ -47,6 +50,7 @@ export const actions = {
     }
     const { uid, email, displayName, photoURL } = ctx.authUser
     const doc = await (this as any).$fire.firestore.collection('users').doc(uid).get()
+
     if (!doc.exists) {
       store.dispatch('conversations/createConversation', { title: 'Conversation' }, { root: true })
       doc.ref.set({ uid, email, displayName, photoURL })

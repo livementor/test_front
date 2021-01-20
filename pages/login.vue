@@ -7,10 +7,11 @@
       {{ getSubtitle }}
     </p>
     <div v-if="shouldLogin || shouldRegister" class="w-64 m-auto">
-      <input v-model="email"
-             type="text"
-             class="m-auto rounded-full w-full"
-             :placeholder="$t('login.emailPlaceholder')"
+      <input
+        v-model="email"
+        type="text"
+        class="m-auto rounded-full w-full"
+        :placeholder="$t('login.emailPlaceholder')"
       >
       <input v-model="password" type="password" class="m-auto mt-2 rounded-full w-full" :placeholder="$t('login.passwordPlaceholder')">
       <Button :text="shouldLogin ? $t('login.loginButton') : $t('login.registerButton') " class="w-full mt-2" @click.native="buttonClicked()" />

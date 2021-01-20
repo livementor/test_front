@@ -1,7 +1,6 @@
 import Vue from 'vue'
 
 export const state = () => ({
-
 })
 
 export const mutations = {
@@ -18,18 +17,25 @@ export const mutations = {
 }
 
 export const actions = {
-  createConversation (conversation) {
+  async createConversation (state, conversation = {}) {
+    console.log('conversation', conversation)
     if (!this.$fire.auth.currentUser) {
       return
     }
-    const ref = this.$fire.firestore.collection('conversations').doc()
-    conversation.participants = [this.$fire.auth.currentUser.uid, 'bmAaBLtmpHYqHDOH875oVsVNbhV2']
-    conversation.id = ref.id
-    ref.set(conversation)
 
-    this.dispatch('messages/createMessage', { conversationId: ref.id, message: { author: 'bmAaBLtmpHYqHDOH875oVsVNbhV2', text: 'Bonjour' } }, { root: true })
-    this.dispatch('messages/createMessage', { conversationId: ref.id, message: { author: this.$fire.auth.currentUser.uid, text: 'Bonjour' } }, { root: true })
-    this.commit('conversations/SET_CONVERSATION', { id: ref.id, conversation: ref })
+    try {
+      const ref = this.$fire.firestore.collection('conversations').doc()
+      conversation.participants = [this.$fire.auth.currentUser.uid, 'bmAaBLtmpHYqHDOH875oVsVNbhV2']
+      conversation.id = ref.id
+      await ref.set(conversation)
+
+      this.dispatch('messages/createMessage', { conversationId: ref.id, message: { author: 'bmAaBLtmpHYqHDOH875oVsVNbhV2', text: 'Bonjour' } }, { root: true })
+      this.dispatch('messages/createMessage', { conversationId: ref.id, message: { author: this.$fire.auth.currentUser.uid, text: 'Bonjour' } }, { root: true })
+      this.commit('conversations/SET_CONVERSATION', { id: ref.id, conversation: ref })
+      // this.dispatch('showNotification', { message: 'Conversation created', type: 1 })
+    } catch (e) {
+      this.dispatch('showNotification', { message: e.message, type: 0 })
+    }
   },
 
   async fetchConversations () {
@@ -56,5 +62,4 @@ export const getters = {
   getConversations: (state) => {
     return state
   },
-
 }

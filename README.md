@@ -1,44 +1,53 @@
-# test Front Livementor
+# Test Front Livementor
 
 LiveMentor a connu une croissance très rapide lors de l’année 2020 (x2, en étant rentables toute l’année).
-Cette croissance, nous ne voulons pas l’avoir si elle se traduit par une baisse de la qualité. 
-Notre conviction est que la qualité du produit dépend de la qualité des personnes, qui dépend elle-même du temps qu’on peut leur consacrer dans la formation, sur leur job, en faisant avec eux. 
-C’est jouable si l’équilibre entre les personnes capables de former et celles à former est maintenu. D’où notre investissement sur des tests techniques de ce type. La croissance rapide consiste à former les personnes à l’échelle. 
+Cette croissance, nous ne voulons pas l’avoir si elle se traduit par une baisse de la qualité.
+Notre conviction est que la qualité du produit dépend de la qualité des personnes, qui dépend elle-même du temps qu’on peut leur consacrer dans la formation, sur leur job, en faisant avec eux.
+C’est jouable si l’équilibre entre les personnes capables de former et celles à former est maintenu. D’où notre investissement sur des tests techniques de ce type. La croissance rapide consiste à former les personnes à l’échelle.
 C’est pour cela que le système lean est clef pour nous, car il s’agit d’un système de formation.
 
-## Build Setup
+## Changes
 
-```bash
-# install dependencies
-$ yarn install
+J'ai simplifié la config docker:
 
-# serve with hot reload at localhost:3000
-$ yarn dev
+- J'ai supprimé le `Dockerfile` car inutile, toute la configuration est contenue dans le `docker-compose.yml`
+- J'ai ajouté un fichier `Makefile` afin d'avoir des raccourcis de commande pour `build` et `serve` le projet
+- J'ai utilisé une image de node moins lourde et qui contient le nécessaire (`node:14-alpine3.10`)
+- Par souci de compatibilité avec `Typescript` (accès au typage etc), j'ai ajouté les `node_modules`
 
-# build for production and launch server
-$ yarn build
-$ yarn start
+SCSS:
 
-# generate static project
-$ yarn generate
-```
+- J'ai ajouté `sass-loader` et `node-sass` pour utiliser et compiler du SCSS
 
 ## Docker
 
-You can also use [docker](https://www.docker.com/) with [docker-sync](http://docker-sync.io/) to run this project 
+You can also use [docker](https://www.docker.com/) (option: use the cmd `make`)
+
+### Build & Serve
 
 ```bash
-$ docker-compose build
-$ docker-sync-stack start
+make docker-serve
+
+# or
+
+docker-compose run test_app yarn install
+docker-compose up --build -d
+```
+
+### See nuxt server logs
+
+```bash
+docker-compose logs -f test_app
 ```
 
 ## Data structure
-The data layer is based on Firebase (firestore) you don't need to access the admin panel of firebase. 
+
+The data layer is based on Firebase (firestore) you don't need to access the admin panel of firebase.
 You can modify the data structure as long as you prefix your collections by your last name.
 For exemple : If I want to modify the users structure I will name the new collection barbier_users
 
-
 Users collection (users)
+
 ```json
 {
   "uid": "bmAaBLtmpHYqHDOH875oVsVNbhV2",
@@ -47,7 +56,9 @@ Users collection (users)
   "photoURL": null
 }
 ```
+
 Conversations collection (conversations)
+
 ```json
 {
   "id": "6Twrq3cISEseYKKB0Qgg",
@@ -55,7 +66,9 @@ Conversations collection (conversations)
   "title": "Conversation"
 }
 ```
+
 Message collection ({conversationId}/messages)
+
 ```json
 {
   "id": "tjtIMr0qi8eEEpSPg6my",
@@ -65,23 +78,23 @@ Message collection ({conversationId}/messages)
 }
 ```
 
-# Project structure 
+## Project structure
 
 This project is build with [vue.js](https://vuejs.org/) and [nuxt.js](https://nuxtjs.org/)
 
-We voluntarily mix typescript and javascript in this project to allow you to use whichever language you prefer. 
+We voluntarily mix typescript and javascript in this project to allow you to use whichever language you prefer.
 
 The store is already structured but you can modify it however you want.
 
-The stylesheet from [mikado](https://livementor.github.io/mikado/) is already imported you can use it or use something else. 
+The stylesheet from [mikado](https://livementor.github.io/mikado/) is already imported you can use it or use something else.
 
-# Goal
+## Goal
 
-In this project you have everything you need to build a chat interface. _Don't spend more than three hours on this._ 
+In this project you have everything you need to build a chat interface. _Don't spend more than three hours on this._
 
-Start by launching the project and go to localhost:3000 in your navigator. You should log in to create your user and your first conversation (the conversation and some messages are auto generated). 
+Start by launching the project and go to localhost:3000 in your navigator. You should log in to create your user and your first conversation (the conversation and some messages are auto generated).
 
-Now your job is to retrieve list of conversations where you are a participant and show this list. 
+Now your job is to retrieve list of conversations where you are a participant and show this list.
 
 When you click on a conversation item you should load in the right part of your window the messages of the selected conversation.
 
@@ -90,15 +103,11 @@ You can add everything you want to show your skills.
 
 For exemple you can add an input to send messages.
 
-Here is an example of what you can create : 
+Here is an example of what you can create :
 ![Sample](https://github.com/livementor/test_front/blob/main/Sample%20screen/Screenshot%202020-12-06%20at%2014.57.43.png)
 
-# Delivery
+## Delivery
 
 Create a new branch named "your_name"\_test on this repository
 
-When you are done, just create a pull request and ask for a review. 
-
-
-
-
+When you are done, just create a pull request and ask for a review.

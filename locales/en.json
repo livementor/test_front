@@ -19,6 +19,10 @@
     "start": "Start"
   },
   "chat": {
-    "noConversation": "Pas de conversation sélécitonnée"
+    "noConversation": "No conversation selected",
+    "header_title": "Messages",
+    "create_conversation": "Create conversation",
+    "selected_conversation": "Conversation selected {roomId}",
+    "send_message": "Send"
   }
 }

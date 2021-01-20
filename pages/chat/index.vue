@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="maz-flex maz-flex-center maz-direction-column">
     {{ $t('chat.noConversation') }}
   </div>
 </template>
@@ -10,6 +10,5 @@ import Component from 'vue-class-component'
 
 @Component
 export default class ChatRoot extends Vue {
-
 }
 </script>

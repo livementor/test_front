@@ -1,10 +1,10 @@
 <template>
-  <div class="flex h-16 bg-blue-livementor w-full items-center">
-    <span class="text-center font-bold text-white text-24 m-auto">
+  <header role="navigation" class="header-component flex h-16 w-full items-center">
+    <h1 class="header-component__title text-center font-bold m-auto">
       {{ $t('header.company') }}
-    </span>
-    <Button v-if="showLogout" :text="$t('header.logout')" class="absolute right-0 mr-16" @click.native="logout" />
-  </div>
+    </h1>
+    <Button v-if="showLogout" :text="$t('header.logout')" class="absolute right-0 mr-8" @click="logout" />
+  </header>
 </template>
 
 <script lang="ts">
@@ -30,3 +30,13 @@ export default class HeaderComponent extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.header-component {
+  border-bottom: 0.125rem solid #F2F2F2;
+
+  &__title {
+    font-size: 1.8rem;
+  }
+}
+</style>

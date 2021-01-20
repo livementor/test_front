@@ -1,6 +1,6 @@
 <template>
-  <div v-if="notification !== undefined" :class="['absolute z-10 w-full h-10 flex items-center bg-green-livementor', { 'bg-red-error' : isError }]">
-    <span class="m-auto text-white">
+  <div v-if="notification !== undefined" :class="['absolute z-10 w-full h-10 flex items-center bg-green-livementor px-4', { 'bg-red-error' : isError }]">
+    <span class="m-auto text-white maz-dots-text">
       {{ notification.message }}
     </span>
   </div>
