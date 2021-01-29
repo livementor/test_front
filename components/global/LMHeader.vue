@@ -25,6 +25,7 @@ export default class HeaderComponent extends Vue {
 
   logout () {
     this.$fire.auth.signOut().then(() => {
+      this.$store.dispatch('setAuthUser', undefined)
       this.$router.replace('/login')
     })
   }
