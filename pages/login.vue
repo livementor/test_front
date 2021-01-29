@@ -48,7 +48,7 @@ export default {
       if (this.shouldRegister) {
         this.$fire.auth.createUserWithEmailAndPassword(this.email, this.password).then((response) => {
           if (response.user) {
-            this.$store.dispatch('users/setAuthUser', response.user.uid)
+            this.$store.dispatch('setAuthUser', response.user.uid)
             this.$router.replace('/chat')
           }
         }).catch((e) => {
@@ -57,7 +57,7 @@ export default {
       } else {
         this.$fire.auth.signInWithEmailAndPassword(this.email, this.password).then((response) => {
           if (response.user) {
-            this.$store.dispatch('users/setAuthUser', response.user.uid)
+            this.$store.dispatch('setAuthUser', response.user.uid)
             this.$router.replace('/chat')
           }
         }).catch((e) => {

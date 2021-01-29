@@ -15,7 +15,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator'
 
 @Component
 export default class Chat extends Vue {
-  @Watch('$store.state.users.authUser', { immediate: true })
+  @Watch('$store.state.authUser', { immediate: true })
   onChange (value: any) {
     if (value !== null && value !== undefined && value !== '') {
       this.$store.dispatch('conversations/fetchConversationsForCurrentUser')

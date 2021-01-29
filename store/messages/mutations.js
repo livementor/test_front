@@ -6,4 +6,11 @@ export default {
       Vue.set(state, m.id, m)
     })
   },
+  CREATE_MESSAGE: (state, payload) => {
+    const { ref, message } = payload
+    message.id = payload.ref.id
+    message.createdAt = Date.now()
+    ref.set(message)
+    Vue.set(state, ref.id, message)
+  },
 }

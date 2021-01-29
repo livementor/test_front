@@ -14,15 +14,17 @@ export const mutations = {
     if (ctx.authUser) {
       const { uid, email, displayName, photoURL } = ctx.authUser
       const user = new User(uid, 'username', displayName || 'name', email || '', photoURL || 'avatar_url')
-      state.authUser = user.id
-      Vue.set(this, user.id, user)
+      Vue.set(state, user.id, user)
     }
   },
-  SET_USER (user: User) {
-    Vue.set(this, user.id, user)
+  SET_USER (state: any, user: User) {
+    Vue.set(state, user.id, user)
   },
-  SET_AUTH_USER (state: any, id: string) {
-    state.authUser = id
+
+  CREATE_USER (state: any, payload: any) {
+    const { ref, user } = payload
+    ref.set(user)
+    Vue.set(state, user.uid, user)
   },
   LOGOUT_USER (state: any) {
     delete state[state.authUser]
@@ -31,10 +33,8 @@ export const mutations = {
 }
 
 export const actions = {
-  setAuthUser (store: any, id: string) {
-    store.commit('SET_AUTH_USER', id)
-  },
-  async onAuthStateChangedAction (store : any, ctx: any) {
+
+  async onAuthStateChangedAction (store: any, ctx: any) {
     if (!process.client) {
       return
     }
@@ -46,10 +46,12 @@ export const actions = {
       store.dispatch('showNotification', { message: 'No user connected', type: NotificationType.ERROR }, { root: true })
     }
     const { uid, email, displayName, photoURL } = ctx.authUser
+    store.dispatch('setAuthUser', uid, { root: true })
     const doc = await (this as any).$fire.firestore.collection('users').doc(uid).get()
+
     if (!doc.exists) {
       store.dispatch('conversations/createConversation', { title: 'Conversation' }, { root: true })
-      doc.ref.set({ uid, email, displayName, photoURL })
+      store.commit('CREATE_USER', { ref: doc.ref, user: { uid, email, displayName, photoURL } })
     }
   },
 }
