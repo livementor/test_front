@@ -1,12 +1,14 @@
 <template>
-  <div class="flex">
-    <div class="w-1/4">
-      <span class="font-bold text-24 mb-20">
-        Chat Layout
-      </span>
-      <ConversationList class="border" />
+  <div class="container mx-auto">
+    <div class="py-6 h-screen">
+      <div class="flex border border-grey rounded shadow-lg h-full">
+        <div class="w-1/3 flex flex-col">
+          <ConversationSearch />
+          <ConversationList />
+        </div>
+        <NuxtChild />
+      </div>
     </div>
-    <NuxtChild class="w-3/4" />
   </div>
 </template>
 

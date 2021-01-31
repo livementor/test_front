@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <span>
-      Conversation séléctionné {{ $route.params.id }}
-    </span>
+  <div class="w-2/3 flex flex-col">
+    <ConversationHeader/>
+    <ConversationContainerMessage />
+    <ConversationInput />
   </div>
 </template>
 
