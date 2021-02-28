@@ -23,9 +23,10 @@ export const actions = {
       return
     }
     const ref = this.$fire.firestore.collection('conversations').doc()
-    payload.participants = [this.$fire.auth.currentUser.uid, 'bmAaBLtmpHYqHDOH875oVsVNbhV2']
-    payload.id = ref.id
-    ref.set(payload)
+    ref.add({
+      ...payload,
+      participants: [this.$fire.auth.currentUser.uid, 'bmAaBLtmpHYqHDOH875oVsVNbhV2'],
+    })
 
     dispatch('messages/createMessage', { conversationId: ref.id, message: { author: 'bmAaBLtmpHYqHDOH875oVsVNbhV2', text: 'Bonjour' } }, { root: true })
     dispatch('messages/createMessage', { conversationId: ref.id, message: { author: this.$fire.auth.currentUser.uid, text: 'Bonjour' } }, { root: true })
