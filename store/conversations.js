@@ -18,18 +18,18 @@ export const mutations = {
 }
 
 export const actions = {
-  createConversation (conversation) {
+  createConversation ({ commit, dispatch }, payload) {
     if (!this.$fire.auth.currentUser) {
       return
     }
     const ref = this.$fire.firestore.collection('conversations').doc()
-    conversation.participants = [this.$fire.auth.currentUser.uid, 'bmAaBLtmpHYqHDOH875oVsVNbhV2']
-    conversation.id = ref.id
-    ref.set(conversation)
+    payload.participants = [this.$fire.auth.currentUser.uid, 'bmAaBLtmpHYqHDOH875oVsVNbhV2']
+    payload.id = ref.id
+    ref.set(payload)
 
-    this.dispatch('messages/createMessage', { conversationId: ref.id, message: { author: 'bmAaBLtmpHYqHDOH875oVsVNbhV2', text: 'Bonjour' } }, { root: true })
-    this.dispatch('messages/createMessage', { conversationId: ref.id, message: { author: this.$fire.auth.currentUser.uid, text: 'Bonjour' } }, { root: true })
-    this.commit('conversations/SET_CONVERSATION', { id: ref.id, conversation: ref })
+    dispatch('messages/createMessage', { conversationId: ref.id, message: { author: 'bmAaBLtmpHYqHDOH875oVsVNbhV2', text: 'Bonjour' } }, { root: true })
+    dispatch('messages/createMessage', { conversationId: ref.id, message: { author: this.$fire.auth.currentUser.uid, text: 'Bonjour' } }, { root: true })
+    commit('conversations/SET_CONVERSATION', { id: ref.id, conversation: ref })
   },
 
   async fetchConversations () {
