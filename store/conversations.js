@@ -58,4 +58,7 @@ export const getters = {
     return state
   },
 
+  getConversationById: state => (conversationId) => {
+    return state[conversationId]
+  },
 }
