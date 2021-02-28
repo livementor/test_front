@@ -1,13 +1,10 @@
 <template>
   <div>
-    <div>
-      <span>{{ currentConversation }}</span>
-    </div>
     <span>
       Conversation sélectionnée {{ $route.params.id }}
     </span>
-    <div v-for="(id, index) in messagesForCurrentConversation" :key="index">
-      {{ id }}
+    <div v-for="(message, index) in messagesForCurrentConversation" :key="index">
+      <span>{{ message.text }}</span>
     </div>
   </div>
 </template>
@@ -15,7 +12,6 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import { Message } from '~/models/message'
-import { Conversation } from '~/models/conversation'
 
 @Component
 export default class Conversations extends Vue {
@@ -31,13 +27,6 @@ export default class Conversations extends Vue {
       this.conversationId = convId
       this.$store.dispatch('messages/fetchMessagesForConversation', convId)
     }
-  }
-
-  get currentConversation (): Conversation | null {
-    if (!this.conversationId) {
-      return null
-    }
-    return this.$store.getters['conversations/getConversationById'](this.conversationId)
   }
 
   get messagesForCurrentConversation (): Message[] {
