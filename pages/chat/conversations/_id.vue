@@ -1,7 +1,7 @@
 <template>
   <div>
     <span>
-      Conversation séléctionné {{ $route.params.id }}
+      Conversation sélectionnée {{ $route.params.id }}
     </span>
   </div>
 </template>
