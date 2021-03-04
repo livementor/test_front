@@ -6,7 +6,8 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate"
+    "generate": "nuxt generate",
+    "lint": "eslint --ext .ts,.js,.vue ."
   },
   "dependencies": {
     "@nuxtjs/firebase": "^7.1.1",
@@ -33,7 +34,9 @@
     "@nuxt/typescript-build": "^2.0.3",
     "@nuxtjs/eslint-config-typescript": "^5.0.0",
     "@nuxtjs/tailwindcss": "^3.1.0",
-    "@typescript-eslint/eslint-plugin": "^4.8.2"
-  },
-  "lint": "eslint --ext .ts,.js,.vue ."
+    "@typescript-eslint/eslint-plugin": "^4.8.2",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "prettier": "^1.19.1"
+  }
 }

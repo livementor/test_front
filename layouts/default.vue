@@ -1,8 +1,12 @@
 <template>
-  <div>
+  <div class="flex-col flex">
     <HeaderComponent />
-    <GlobalNotification v-if="getNotification !== undefined" :notification="getNotification" />
-    <Nuxt />
+    <GlobalNotification
+      v-if="getNotification !== undefined"
+      :notification="getNotification"
+    />
+
+    <Nuxt class="flex-grow" />
   </div>
 </template>
 
@@ -17,6 +21,5 @@ export default Vue.extend({
   computed: {
     ...mapGetters(['getNotification']),
   },
-
 })
 </script>

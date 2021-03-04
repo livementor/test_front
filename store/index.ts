@@ -1,38 +1,39 @@
+import { ActionTree, GetterTree, MutationTree } from 'vuex'
 import { vuexfireMutations } from 'vuexfire'
 import { INotification } from '~/models/notification'
 
-export interface IState {
+export interface IRootState {
   locale: string
   notification?: INotification
   locales: Array<string>
   conversations?: Map<string, any>
-  users?:Map<string, any>
+  users?: Map<string, any>
 }
 
-export const state = ():IState => ({
+export const state = (): IRootState => ({
   locales: ['en', 'fr'],
   locale: 'fr',
   notification: undefined,
 })
 
-export const getters = {
-  getNotification (state: IState) {
+export const getters: GetterTree<IRootState, IRootState> = {
+  getNotification(state: IRootState) {
     return state.notification
   },
 }
 
-export const mutations = {
+export const mutations: MutationTree<IRootState> = {
   ...vuexfireMutations,
-  SET_NOTIFICATION: (state: IState, payload?: INotification) => {
+  SET_NOTIFICATION: (state: IRootState, payload?: INotification) => {
     state.notification = payload
   },
 }
 
-export const actions = {
-  showNotification (store: any, payload: any) {
-    store.commit('SET_NOTIFICATION', payload)
+export const actions: ActionTree<IRootState, IRootState> = {
+  showNotification({ commit }, payload) {
+    commit('SET_NOTIFICATION', payload)
   },
-  hideNotification (store: any) {
-    store.commit('SET_NOTIFICATION', undefined)
+  hideNotification({ commit }) {
+    commit('SET_NOTIFICATION', undefined)
   },
 }

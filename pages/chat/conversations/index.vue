@@ -2,15 +2,6 @@
   <div />
 </template>
 
-<script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-
-@Component
-export default class ConversationRoot extends Vue {
-
-}
+<script>
+export default {}
 </script>
-
-<style scoped>
-
-</style>

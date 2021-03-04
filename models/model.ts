@@ -1,7 +1,7 @@
-type ObjectId = string;
+type ObjectId = string
 
 interface IModel {
-  id: ObjectId;
+  id: ObjectId
 }
 
-export { IModel };
+export { IModel }

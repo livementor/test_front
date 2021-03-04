@@ -7,17 +7,45 @@
       {{ getSubtitle }}
     </p>
     <div v-if="shouldLogin || shouldRegister" class="w-64 m-auto">
-      <input v-model="email"
-             type="text"
-             class="m-auto rounded-full w-full"
-             :placeholder="$t('login.emailPlaceholder')"
-      >
-      <input v-model="password" type="password" class="m-auto mt-2 rounded-full w-full" :placeholder="$t('login.passwordPlaceholder')">
-      <Button :text="shouldLogin ? $t('login.loginButton') : $t('login.registerButton') " class="w-full mt-2" @click.native="buttonClicked()" />
+      <input
+        v-model="email"
+        type="text"
+        class="m-auto rounded-full w-full"
+        :placeholder="$t('login.emailPlaceholder')"
+      />
+      <input
+        v-model="password"
+        type="password"
+        class="m-auto mt-2 rounded-full w-full"
+        :placeholder="$t('login.passwordPlaceholder')"
+      />
+      <Button
+        :text="
+          shouldLogin ? $t('login.loginButton') : $t('login.registerButton')
+        "
+        class="w-full mt-2"
+        @click.native="buttonClicked()"
+      />
     </div>
     <div class="w-64 m-auto">
-      <Button v-if="!shouldLogin" :text="$t('login.loginButton')" class="w-full mt-2" @click.native="shouldRegister = false; shouldLogin = true" />
-      <Button v-if="!shouldRegister" :text="$t('login.registerButton')" class="w-full mt-2" @click.native="shouldRegister = true; shouldLogin = false" />
+      <Button
+        v-if="!shouldLogin"
+        :text="$t('login.loginButton')"
+        class="w-full mt-2"
+        @click.native="
+          shouldRegister = false
+          shouldLogin = true
+        "
+      />
+      <Button
+        v-if="!shouldRegister"
+        :text="$t('login.registerButton')"
+        class="w-full mt-2"
+        @click.native="
+          shouldRegister = true
+          shouldLogin = false
+        "
+      />
     </div>
   </div>
 </template>
@@ -36,33 +64,47 @@ export default {
     }
   },
   computed: {
-    getSubtitle () {
+    getSubtitle() {
       if (!this.shouldLogin && !this.shouldRegister) {
         return this.$t('login.default')
       }
-      return this.shouldLogin ? this.$t('login.login') : this.$t('login.register')
+      return this.shouldLogin
+        ? this.$t('login.login')
+        : this.$t('login.register')
     },
   },
   methods: {
-    buttonClicked () {
+    buttonClicked() {
       if (this.shouldRegister) {
-        this.$fire.auth.createUserWithEmailAndPassword(this.email, this.password).then((response) => {
-          if (response.user) {
-            this.$store.dispatch('users/setAuthUser', response.user.uid)
-            this.$router.replace('/chat')
-          }
-        }).catch((e) => {
-          this.$store.dispatch('showNotification', { message: e.message, type: NotificationType.ERROR })
-        })
+        this.$fire.auth
+          .createUserWithEmailAndPassword(this.email, this.password)
+          .then(response => {
+            if (response.user) {
+              this.$store.dispatch('users/setUser', response.user)
+              this.$router.replace('/chat')
+            }
+          })
+          .catch(e => {
+            this.$store.dispatch('showNotification', {
+              message: e.message,
+              type: NotificationType.ERROR,
+            })
+          })
       } else {
-        this.$fire.auth.signInWithEmailAndPassword(this.email, this.password).then((response) => {
-          if (response.user) {
-            this.$store.dispatch('users/setAuthUser', response.user.uid)
-            this.$router.replace('/chat')
-          }
-        }).catch((e) => {
-          this.$store.dispatch('showNotification', { message: e.message, type: NotificationType.ERROR })
-        })
+        this.$fire.auth
+          .signInWithEmailAndPassword(this.email, this.password)
+          .then(response => {
+            if (response.user) {
+              this.$store.dispatch('users/setUser', response.user)
+              this.$router.replace('/chat')
+            }
+          })
+          .catch(e => {
+            this.$store.dispatch('showNotification', {
+              message: e.message,
+              type: NotificationType.ERROR,
+            })
+          })
       }
     },
   },

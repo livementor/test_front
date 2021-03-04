@@ -12,18 +12,19 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://d1myxu64ohxs53.cloudfront.net/mikado/edge/css/mikado.min.css' },
+      {
+        rel: 'stylesheet',
+        href:
+          'https://d1myxu64ohxs53.cloudfront.net/mikado/edge/css/mikado.min.css',
+      },
     ],
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
-  css: [
-  ],
+  css: [],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: [
-    '~/plugins/i18n.js',
-  ],
+  plugins: ['~/plugins/i18n.js'],
 
   typescript: {
     typeCheck: {
@@ -64,12 +65,12 @@ export default {
           auth: {
             persistence: 'local', // default
             initialize: {
-              onAuthStateChangedMutation: 'users/ON_AUTH_STATE_CHANGED_MUTATION',
+              onAuthStateChangedMutation:
+                'users/ON_AUTH_STATE_CHANGED_MUTATION',
               onAuthStateChangedAction: 'users/onAuthStateChangedAction',
               subscribeManually: false,
             },
             ssr: false, // default
-
           },
           firestore: true,
         },
@@ -77,6 +78,5 @@ export default {
     ],
   ],
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {
-  },
+  build: {},
 }

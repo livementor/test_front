@@ -1,9 +1,15 @@
-export default function (ctx: any) {
-  if (!ctx.store.state.users.authUser) {
-    if (ctx.route.name !== 'login') { ctx.redirect('/login') }
+import { Middleware } from '@nuxt/types'
+
+const authMiddleware: Middleware = ({ store, route, redirect }) => {
+  if (!store.state.users.user) {
+    if (route.name !== 'login') {
+      redirect('/login')
+    }
     return
   }
-  if (ctx.route.name === 'login') {
-    ctx.redirect('/chat')
+  if (route.name === 'login') {
+    redirect('/chat')
   }
 }
+
+export default authMiddleware

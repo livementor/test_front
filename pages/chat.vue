@@ -1,25 +1,39 @@
 <template>
   <div class="flex">
-    <div class="w-1/4">
-      <span class="font-bold text-24 mb-20">
-        Chat Layout
-      </span>
-      <ConversationList class="border" />
+    <div class="max-w-sm w-full p-5 space-y-5 bg-gray-100">
+      <div class="font-bold text-3xl">
+        Messagerie
+      </div>
+      <ConversationList />
     </div>
-    <NuxtChild class="w-3/4" />
+    <NuxtChild class="p-5 h-screen flex-grow" />
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator'
+<script>
+import { mapState } from 'vuex'
+import ConversationList from '@/components/chat/ConversationList'
 
-@Component
-export default class Chat extends Vue {
-  @Watch('$store.state.users.authUser', { immediate: true })
-  onChange (value: any) {
-    if (value !== null && value !== undefined && value !== '') {
-      this.$store.dispatch('conversations/fetchConversationsForCurrentUser')
-    }
-  }
+export default {
+  components: {
+    ConversationList,
+  },
+
+  computed: {
+    ...mapState('users', {
+      user: 'user',
+    }),
+  },
+
+  watch: {
+    user: {
+      immediate: true,
+      handler(value) {
+        if (value !== null && value !== undefined && value !== '') {
+          this.$store.dispatch('conversations/fetchConversationsForCurrentUser')
+        }
+      },
+    },
+  },
 }
 </script>

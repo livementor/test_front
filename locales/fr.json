@@ -19,6 +19,8 @@
     "start": "Start"
   },
   "chat": {
-    "noConversation": "Pas de conversation sélécitonnée"
+    "noConversation": "Pas de conversation sélectionnée",
+    "noMessages": "C'est de début de votre conversation avec {user}",
+    "chatHeading": "Conversation avec {user}"
   }
 }

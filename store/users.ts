@@ -1,54 +1,73 @@
-import Vue from 'vue'
-import { NotificationType } from '@/models/notification'
+import { ActionTree, MutationTree } from 'vuex'
 import { User } from '../models/user'
+import { IRootState } from '.'
+import { NotificationType } from '~/models/notification'
 
-export const state = () => ({
-  authUser: undefined,
+interface IUserState {
+  user?: User
+}
+
+export const state = (): IUserState => ({
+  user: undefined,
 })
 
-export const getters = {
-}
+export const mutations: MutationTree<IUserState> = {
+  ON_AUTH_STATE_CHANGED_MUTATION(state, payload) {
+    const { authUser: user } = payload
 
-export const mutations = {
-  ON_AUTH_STATE_CHANGED_MUTATION (state: any, ctx: any) {
-    if (ctx.authUser) {
-      const { uid, email, displayName, photoURL } = ctx.authUser
-      const user = new User(uid, 'username', displayName || 'name', email || '', photoURL || 'avatar_url')
-      state.authUser = user.id
-      Vue.set(this, user.id, user)
+    if (user) {
+      const { uid, email, displayName, photoURL } = user
+
+      const newUser = new User(
+        uid,
+        'username',
+        displayName || 'name',
+        email || '',
+        photoURL || 'avatar_url',
+      )
+      state.user = newUser
     }
   },
-  SET_USER (user: User) {
-    Vue.set(this, user.id, user)
+  SET_USER(state, user) {
+    state.user = user
   },
-  SET_AUTH_USER (state: any, id: string) {
-    state.authUser = id
-  },
-  LOGOUT_USER (state: any) {
-    delete state[state.authUser]
-    state.authUser = undefined
+  LOGOUT_USER(state) {
+    state.user = undefined
   },
 }
 
-export const actions = {
-  setAuthUser (store: any, id: string) {
-    store.commit('SET_AUTH_USER', id)
+export const actions: ActionTree<IUserState, IRootState> = {
+  setAuthUser({ commit }, payload) {
+    commit('SET_USER', payload)
   },
-  async onAuthStateChangedAction (store : any, ctx: any) {
+  async onAuthStateChangedAction({ commit, dispatch }, payload) {
     if (!process.client) {
       return
     }
-    if (ctx.authUser === null) {
-      store.commit('LOGOUT_USER')
+    const { authUser: user } = payload
+
+    if (!user) {
+      commit('LOGOUT_USER')
+      dispatch(
+        'showNotification',
+        { message: 'No user connected', type: NotificationType.ERROR },
+        { root: true },
+      )
       return
     }
-    if (!ctx.authUser) {
-      store.dispatch('showNotification', { message: 'No user connected', type: NotificationType.ERROR }, { root: true })
-    }
-    const { uid, email, displayName, photoURL } = ctx.authUser
-    const doc = await (this as any).$fire.firestore.collection('users').doc(uid).get()
+
+    const { uid, email, displayName, photoURL } = user
+    const doc = await this.$fire.firestore
+      .collection('users')
+      .doc(uid)
+      .get()
+
     if (!doc.exists) {
-      store.dispatch('conversations/createConversation', { title: 'Conversation' }, { root: true })
+      dispatch(
+        'conversations/createConversation',
+        { title: 'Conversation' },
+        { root: true },
+      )
       doc.ref.set({ uid, email, displayName, photoURL })
     }
   },

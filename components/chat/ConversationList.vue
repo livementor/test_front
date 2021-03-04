@@ -1,27 +1,32 @@
 <template>
-  <div>
-    <span>Conversations ids</span>
-    <div v-for="(id, index) in conversationsIds" :key="index">
-      <NuxtLink :to="`/chat/conversations/${id}`" class="text-blue-livementor">
-        {{ id }}
-      </NuxtLink>
+  <div class="p-2 space-y-5">
+    <div v-if="!conversations || !conversations.length">
+      Aucune conversation pour le moment
     </div>
+    <template v-else>
+      <div v-for="conversation in conversations" :key="conversation.id">
+        <ConversationPreview
+          :conversation="conversation"
+          :isActive="conversation.id === $route.params.id"
+        />
+      </div>
+    </template>
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import { Getter } from 'vuex-class'
+<script>
+import ConversationPreview from '@/components/chat/ConversationPreview'
+import { mapState } from 'vuex'
 
-@Component
-export default class ConversationList extends Vue {
-  @Getter('conversations/getConversations') getConversations:any
+export default {
+  components: {
+    ConversationPreview,
+  },
 
-  get conversationsIds () {
-    if (!this.$fire.auth.currentUser) {
-      return []
-    }
-    return Object.keys(this.getConversations)
-  }
+  computed: {
+    ...mapState('conversations', {
+      conversations: 'conversations',
+    }),
+  },
 }
 </script>

@@ -7,8 +7,11 @@ module.exports = {
   extends: [
     'plugin:vue/recommended',
     '@nuxtjs/eslint-config-typescript',
+    'prettier',
+    'prettier/vue',
+    'plugin:prettier/recommended',
   ],
-  plugins: ['vue'],
+  plugins: ['vue', 'prettier'],
   // add your custom rules here
   rules: {
     'no-extra-parens': 2, // https: //eslint.org/docs/rules/no-extra-parens

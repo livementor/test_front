@@ -1,13 +1,13 @@
 import { IModel } from './model'
 
 class User implements IModel {
-  id: string = '';
-  username: string;
-  name: string;
-  email: string;
-  avatar: string;
+  id: string = ''
+  username: string
+  name: string
+  email: string
+  avatar: string
 
-  constructor (
+  constructor(
     id: string,
     username: string,
     name: string,
