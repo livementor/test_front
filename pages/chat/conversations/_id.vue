@@ -13,13 +13,13 @@
         {{ $t('chat.chatHeading', { user: participant.displayName }) }}
       </span>
 
-      <div class="flex-grow mb-3 mt-1 flex rounded overflow-auto mx-1 p-2">
+      <div class="flex-grow mb-3 mt-1 flex rounded mx-1 h-1">
         <div
-          v-if="messages && messages.length"
-          class="space-y-1 self-end w-full flex flex-col relative overflow-auto p-2"
+          v-if="reversedMessages && reversedMessages.length"
+          class="space-y-1 self-end w-full flex flex-col-reverse overflow-auto relative h-full pr-3"
         >
           <span
-            v-for="(message, idx) in messages"
+            v-for="(message, idx) in reversedMessages"
             :key="message.id"
             :class="idx % 2 ? 'self-start text-left' : 'self-end text-right'"
           >
@@ -38,7 +38,11 @@
       </div>
     </div>
 
-    <InputMessage class="w-full" :isLoading="isLoading" @submit="onSubmit" />
+    <InputMessage
+      class="w-full flex-shrink-0"
+      :isLoading="isLoading"
+      @submit="onSubmit"
+    />
   </div>
 </template>
 
@@ -65,6 +69,11 @@ export default {
     ...mapState('messages', {
       messages: 'messages',
     }),
+
+    reversedMessages() {
+      const tempMessages = [...this.messages]
+      return tempMessages.reverse()
+    },
   },
 
   watch: {

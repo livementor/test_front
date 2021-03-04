@@ -13,7 +13,7 @@
 
     <button
       :disabled="isLoading"
-      class="bg-blue-500 px-4 py-1 text-white focus:outline-none focus:shadow-outline h-full min-w-0"
+      class="bg-blue-500 px-4 text-white focus:outline-none focus:shadow-outline h-full min-w-0"
       @click="beforeSubmit"
     >
       <Send class="w-6 h-6 text-white" />
