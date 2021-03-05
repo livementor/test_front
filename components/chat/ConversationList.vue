@@ -1,21 +1,27 @@
 <template>
   <div>
-    <span>Conversations ids</span>
-    <div v-for="(id, index) in conversationsIds" :key="index">
+    <div v-for="(id, index) in conversationsIds" :key="index" @click="currentTabIdx = index">
       <NuxtLink :to="`/chat/conversations/${id}`" class="text-blue-livementor">
-        {{ id }}
+        <ConversationTab
+          :conversation="getConversations[id]"
+          class="m-1 rounded-lg"
+          :class="{'bg-gray-200': currentTabIdx === index}"
+        />
       </NuxtLink>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Watch } from 'vue-property-decorator'
 import { Getter } from 'vuex-class'
-
-@Component
+import ConversationTab from '~/components/chat/ConversationTab.vue'
+@Component({
+  components: { ConversationTab },
+})
 export default class ConversationList extends Vue {
-  @Getter('conversations/getConversations') getConversations:any
+  currentTabIdx = -1
+  @Getter('conversations/getConversations') getConversations: any
 
   get conversationsIds () {
     if (!this.$fire.auth.currentUser) {

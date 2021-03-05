@@ -1,12 +1,17 @@
 import Vue from 'vue'
 import { NotificationType } from '@/models/notification'
 import { User } from '@/models/user'
+import { firestoreAction, vuexfireMutations } from 'vuexfire'
 
 export const state = () => ({
   authUser: undefined,
+  users: [],
 })
 
 export const getters = {
+  getUsers (state: any) {
+    return state.users
+  },
 }
 
 export const mutations = {
@@ -28,6 +33,7 @@ export const mutations = {
     delete state[state.authUser]
     state.authUser = undefined
   },
+  ...vuexfireMutations,
 }
 
 export const actions = {
@@ -52,4 +58,10 @@ export const actions = {
       doc.ref.set({ uid, email, displayName, photoURL })
     }
   },
+  bindUsers: firestoreAction(({ bindFirestoreRef }, ref) => {
+    return bindFirestoreRef('users', ref)
+  }),
+  unbindUsers: firestoreAction(({ unbindFirestoreRef }) => {
+    unbindFirestoreRef('users')
+  }),
 }
