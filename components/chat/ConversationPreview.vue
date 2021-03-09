@@ -12,9 +12,9 @@
       </div>
 
       <NuxtLink
+        v-else
         :to="`/chat/conversations/${conversation.id}`"
         class="flex p-2 space-x-5 items-center"
-        v-else
       >
         <div class="w-10 h-10 rounded-full bg-blue-500 overflow-hidden p-2">
           <img

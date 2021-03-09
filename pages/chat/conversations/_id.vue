@@ -19,11 +19,18 @@
           class="space-y-1 self-end w-full flex flex-col-reverse overflow-auto relative h-full pr-3"
         >
           <span
-            v-for="(message, idx) in reversedMessages"
+            v-for="message in reversedMessages"
             :key="message.id"
-            :class="idx % 2 ? 'self-start text-left' : 'self-end text-right'"
+            :class="
+              message.author && message.author !== user.id
+                ? 'self-start text-left'
+                : 'self-end text-right'
+            "
           >
-            <Message v-bind="message" :isOwnMessage="!(idx % 2)" />
+            <Message
+              v-bind="message"
+              :isOwnMessage="!message.author || message.author === user.id"
+            />
           </span>
         </div>
 
@@ -70,6 +77,10 @@ export default {
       messages: 'messages',
     }),
 
+    ...mapState('users', {
+      user: 'user',
+    }),
+
     reversedMessages() {
       const tempMessages = [...this.messages]
       return tempMessages.reverse()
@@ -82,6 +93,8 @@ export default {
       async handler(val) {
         try {
           this.isLoading = true
+          await new Promise(resolve => setTimeout(resolve, 500))
+
           const ref = await this.$fire.firestore
             .collection('conversations')
             .doc(this.$route.params.id)
@@ -102,14 +115,11 @@ export default {
           }
           this.participant = doc.data()
 
-          this.$store.commit('conversations/SET_CURRENT_CONVERSATION_ID', val)
-
           await this.$store.dispatch(
             'messages/fetchMessagesForConversation',
             val,
           )
-          await new Promise(resolve => setTimeout(resolve, 1000))
-          console.log(1)
+          await new Promise(resolve => setTimeout(resolve, 500))
         } catch (e) {
           this.error = 'Error while fetching user'
         } finally {
