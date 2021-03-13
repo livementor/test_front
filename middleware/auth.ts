@@ -1,9 +1,13 @@
 export default function (ctx: any) {
-  if (!ctx.store.state.users.authUser) {
-    if (ctx.route.name !== 'login') { ctx.redirect('/login') }
-    return
+  const isUserLoggedIn = ctx.store.state.users.authUser
+  const isHomeRoute = ctx.route.name === 'index'
+  const isLoginRoute = ctx.route.name === 'login'
+
+  if (!isUserLoggedIn && !isLoginRoute && !isHomeRoute) {
+    return ctx.redirect('/login')
   }
-  if (ctx.route.name === 'login') {
+
+  if (isUserLoggedIn && isLoginRoute) {
     ctx.redirect('/chat')
   }
 }
