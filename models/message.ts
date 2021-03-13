@@ -1,9 +1,9 @@
 import { IModel } from './model'
 
 class Message implements IModel {
-  id: string;
-  createdAt: Date;
-  author: string;
+  id: string
+  createdAt: Date
+  author: string
 
   constructor(id: string, createdAt: Date, author: string) {
     this.id = id
@@ -12,4 +12,4 @@ class Message implements IModel {
   }
 }
 
-export { Message };
+export { Message }

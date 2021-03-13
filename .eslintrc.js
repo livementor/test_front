@@ -4,10 +4,7 @@ module.exports = {
     browser: true,
     node: true,
   },
-  extends: [
-    'plugin:vue/recommended',
-    '@nuxtjs/eslint-config-typescript',
-  ],
+  extends: ['plugin:vue/recommended', '@nuxtjs/eslint-config-typescript'],
   plugins: ['vue'],
   // add your custom rules here
   rules: {
@@ -17,5 +14,7 @@ module.exports = {
     'comma-dangle': ['error', 'always-multiline'],
     'vue/max-attributes-per-line': 0, // https: //eslint.vuejs.org/rules/max-attributes-per-line.html
     'vue/attribute-hyphenation': 0, // https: //eslint.vuejs.org/rules/attribute-hyphenation.html
+    'space-before-function-paren': 'off',
+    'arrow-parens': 'off',
   },
 }
