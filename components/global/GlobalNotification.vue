@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
-import { INotification, NotificationType } from '@/models/notification'
+import { INotification, NotificationType } from '~/domain/models/Notification'
 
 @Component
 export default class GlobalNotification extends Vue {

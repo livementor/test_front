@@ -1,22 +1,22 @@
 import { vuexfireMutations } from 'vuexfire'
-import { INotification } from '~/models/notification'
+import { INotification } from '~/domain/models/Notification'
 
 export interface IState {
   locale: string
   notification?: INotification
   locales: Array<string>
   conversations?: Map<string, any>
-  users?:Map<string, any>
+  users?: Map<string, any>
 }
 
-export const state = ():IState => ({
+export const state = (): IState => ({
   locales: ['en', 'fr'],
   locale: 'fr',
   notification: undefined,
 })
 
 export const getters = {
-  getNotification (state: IState) {
+  getNotification(state: IState) {
     return state.notification
   },
 }
@@ -29,10 +29,10 @@ export const mutations = {
 }
 
 export const actions = {
-  showNotification (store: any, payload: any) {
+  showNotification(store: any, payload: any) {
     store.commit('SET_NOTIFICATION', payload)
   },
-  hideNotification (store: any) {
+  hideNotification(store: any) {
     store.commit('SET_NOTIFICATION', undefined)
   },
 }

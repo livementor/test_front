@@ -1,13 +1,25 @@
-export default function (ctx: any) {
-  const isUserLoggedIn = ctx.store.state.users.authUser
-  const isHomeRoute = ctx.route.name === 'index'
-  const isLoginRoute = ctx.route.name === 'login'
+export default function({ store, route, redirect }: any) {
+  const isUserLoggedIn = store.state.users.userId || userIsLoggedIn(store)
+  const isHomeRoute = route.name === 'index'
+  const isLoginRoute = route.name === 'login'
 
   if (!isUserLoggedIn && !isLoginRoute && !isHomeRoute) {
-    return ctx.redirect('/login')
+    return redirect('/login')
   }
 
   if (isUserLoggedIn && isLoginRoute) {
-    ctx.redirect('/chat')
+    redirect('/chat')
   }
+}
+
+// fake firebase
+const userIsLoggedIn = (store: any) => {
+  const localStorageUserId = localStorage.getItem('userId')
+  const userIsLoggedIn = !!localStorageUserId
+
+  if (userIsLoggedIn) {
+    store.dispatch('users/setUserId', localStorageUserId)
+  }
+
+  return userIsLoggedIn
 }

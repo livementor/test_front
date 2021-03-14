@@ -1,72 +1,37 @@
-import Vue from 'vue'
-import { NotificationType } from '@/models/notification'
-import { User } from '../models/user'
+import { ObjectId } from '~/domain/Identifiable'
 
-export const state = () => ({
-  authUser: undefined,
-})
+export const state = () => {
+  return {
+    userId: undefined,
+  }
+}
 
-export const getters = {}
+export const getters = {
+  userId: (state: any) => state.userId,
+}
 
 export const mutations = {
-  ON_AUTH_STATE_CHANGED_MUTATION(state: any, ctx: any) {
-    if (!ctx.authUser) {
-      return
-    }
-
-    const currentUser = ctx.authUser
-    const { uid } = currentUser
-    const username = 'username'
-    const displayName = currentUser.displayName || 'name'
-    const email = currentUser.email || ''
-    const photoURL = currentUser.photoURL || 'avatar_url'
-
-    const user = new User(uid, username, displayName, email, photoURL)
-
-    state.authUser = user.id
-    Vue.set(this, user.id, user)
+  SET_AUTH_USER(state: any, userId: ObjectId) {
+    state.userId = userId
   },
 
-  SET_USER(user: User) {
-    Vue.set(this, user.id, user)
-  },
-
-  SET_AUTH_USER(state: any, id: string) {
-    state.authUser = id
-  },
-
-  LOGOUT_USER(state: any) {
-    delete state[state.authUser]
-    state.authUser = undefined
+  LOGOUT(state: any) {
+    delete state[state.userId]
+    state.userId = undefined
   },
 }
 
 export const actions = {
-  setAuthUser(store: any, id: string) {
-    store.commit('SET_AUTH_USER', id)
+  setUserId({ commit }: any, userId: ObjectId) {
+    localStorage.setItem('userId', userId) // fake push to firebase
+
+    commit('SET_AUTH_USER', userId)
   },
 
-  async onAuthStateChangedAction(store: any, ctx: any) {
-    if (!process.client) {
-      return
-    }
+  logout({ commit }: any) {
+    localStorage.removeItem('userId') // fake push to firebase
+    // @todo: remove store's conversations and messages
 
-    if (!ctx.authUser) {
-      store.commit('LOGOUT_USER')
-      return
-    }
-
-    const currentUser = ctx.authUser
-    const { uid, email, displayName, photoURL } = currentUser
-    const doc = await (this as any).$fire.firestore.collection('users').doc(uid).get()
-
-    if (!currentUser) {
-      store.dispatch('showNotification', { message: 'No user connected', type: NotificationType.ERROR }, { root: true })
-    }
-
-    if (!doc.exists) {
-      store.dispatch('conversations/createConversation', { title: 'Conversation' }, { root: true })
-      doc.ref.set({ uid, email, displayName, photoURL })
-    }
+    commit('LOGOUT')
   },
 }

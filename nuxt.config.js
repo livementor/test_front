@@ -47,35 +47,8 @@ export default {
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
-  modules: [
-    [
-      '@nuxtjs/firebase',
-      {
-        config: {
-          apiKey: 'AIzaSyB_5oeJ0BPFXwzE8odtTi2mvl2ucNxdqpU',
-          authDomain: 'test-tech-lm.firebaseapp.com',
-          databaseURL: 'https://test-tech-lm.firebaseio.com',
-          projectId: 'test-tech-lm',
-          storageBucket: 'test-tech-lm.appspot.com',
-          messagingSenderId: '689214158912',
-          appId: '1:689214158912:web:eddc1bd01daaef0ff0c7a5',
-        },
-        services: {
-          auth: {
-            persistence: 'local', // default
-            initialize: {
-              onAuthStateChangedMutation: 'users/ON_AUTH_STATE_CHANGED_MUTATION',
-              onAuthStateChangedAction: 'users/onAuthStateChangedAction',
-              subscribeManually: false,
-            },
-            ssr: false, // default
+  modules: [],
 
-          },
-          firestore: true,
-        },
-      },
-    ],
-  ],
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
   },

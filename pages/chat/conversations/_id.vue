@@ -13,8 +13,8 @@ import { Component, Vue, Watch } from 'vue-property-decorator'
 export default class Conversations extends Vue {
   currentroot = 'no route'
   @Watch('$route')
-  onPropertyChanged (value: any, _: any) {
-    this.currentroot = value.params.id
+  onPropertyChanged (updatedRoute: any) {
+    this.currentroot = updatedRoute.params.id
   }
 }
 </script>

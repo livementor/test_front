@@ -15,18 +15,17 @@ export default class HeaderComponent extends Vue {
   currentRoute = this.$route.name
 
   @Watch('$route', { immediate: true })
-  onPropertyChanged (value: any, _: any) {
-    this.currentRoute = value.name
+  onPropertyChanged(updatedRoute: any) {
+    this.currentRoute = updatedRoute.name
   }
 
-  get showLogout () {
+  get showLogout() {
     return this.$route.name !== 'login' && this.$route.name !== 'index'
   }
 
-  logout () {
-    this.$fire.auth.signOut().then(() => {
-      this.$router.replace('/login')
-    })
+  logout() {
+    this.$store.dispatch('users/logout')
+    this.$router.replace('/login')
   }
 }
 </script>

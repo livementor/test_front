@@ -14,7 +14,9 @@ module.exports = {
     'comma-dangle': ['error', 'always-multiline'],
     'vue/max-attributes-per-line': 0, // https: //eslint.vuejs.org/rules/max-attributes-per-line.html
     'vue/attribute-hyphenation': 0, // https: //eslint.vuejs.org/rules/attribute-hyphenation.html
+    'vue/html-self-closing': 'off',
     'space-before-function-paren': 'off',
     'arrow-parens': 'off',
+    'no-useless-constructor': 'off',
   },
 }

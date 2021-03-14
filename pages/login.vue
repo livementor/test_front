@@ -8,13 +8,17 @@
       {{ subtitle }}
     </p>
 
-    <!-- note: should be a form -->
-    <div v-if="showForm" class="w-64 m-auto">
-      <input v-model="email" type="text" class="m-auto rounded-full w-full" :placeholder="$t('login.emailPlaceholder')">
-      <input v-model="password" type="password" class="m-auto mt-2 rounded-full w-full" :placeholder="$t('login.passwordPlaceholder')">
+    <form v-if="showForm" class="w-64 m-auto" @submit.prevent="submitForm">
+      <input v-model="email" type="text" class="m-auto rounded-full w-full" :placeholder="$t('login.emailPlaceholder')" />
+      <input v-model="password" type="password" class="m-auto mt-2 rounded-full w-full" :placeholder="$t('login.passwordPlaceholder')" />
 
-      <Button :text="shouldLogin ? $t('login.loginButton') : $t('login.registerButton')" class="w-full mt-2" @click.native="submitForm" />
-    </div>
+      <Button
+        :disabled="!canSubmit"
+        :text="shouldLogin ? $t('login.loginButton') : $t('login.registerButton')"
+        class="w-full mt-2"
+        @click.native="submitForm"
+      />
+    </form>
 
     <div v-else class="w-64 m-auto">
       <Button v-if="!shouldLogin" :text="$t('login.loginButton')" class="w-full mt-2" @click.native="toggleModeTo(Mode.LOGIN)" />
@@ -25,7 +29,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { NotificationType } from '@/models/notification'
+import { User } from '~/domain/models/User'
 
 enum Mode {
   LOGIN,
@@ -53,38 +57,19 @@ export default class Login extends Vue {
     return this.shouldLogin || this.shouldRegister
   }
 
+  get canSubmit() {
+    return this.email !== '' && this.password !== ''
+  }
+
   submitForm() {
-    if (this.shouldRegister) {
-      this.$fire.auth
-        .createUserWithEmailAndPassword(this.email, this.password)
-        .then(response => {
-          if (response.user) {
-            this.$store.dispatch('users/setAuthUser', response.user.uid)
-            this.$router.replace('/chat')
-          }
-        })
-        .catch(e => {
-          this.$store.dispatch('showNotification', {
-            message: e.message,
-            type: NotificationType.ERROR,
-          })
-        })
-    } else {
-      this.$fire.auth
-        .signInWithEmailAndPassword(this.email, this.password)
-        .then(response => {
-          if (response.user) {
-            this.$store.dispatch('users/setAuthUser', response.user.uid)
-            this.$router.replace('/chat')
-          }
-        })
-        .catch(e => {
-          this.$store.dispatch('showNotification', {
-            message: e.message,
-            type: NotificationType.ERROR,
-          })
-        })
+    if (!this.canSubmit) {
+      return
     }
+
+    const user = User.fromProperties({ email: this.email })
+
+    this.$store.dispatch('users/setUserId', user.id)
+    this.$router.push('/chat')
   }
 
   toggleModeTo(mode: Mode) {
