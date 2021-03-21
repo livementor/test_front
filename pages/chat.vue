@@ -1,10 +1,7 @@
 <template>
-  <div class="flex">
+  <div class="flex h-screen">
     <div class="w-1/4">
-      <span class="font-bold text-24 mb-20">
-        Chat Layout
-      </span>
-      <ConversationList class="border" />
+      <ConversationList class="border h-full" />
     </div>
     <NuxtChild class="w-3/4" />
   </div>
@@ -19,6 +16,7 @@ export default class Chat extends Vue {
   onChange (value: any) {
     if (value !== null && value !== undefined && value !== '') {
       this.$store.dispatch('conversations/fetchConversationsForCurrentUser')
+      this.$store.dispatch('users/fetchUsers')
     }
   }
 }

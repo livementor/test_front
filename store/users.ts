@@ -4,6 +4,7 @@ import { User } from '../models/user'
 
 export const state = () => ({
   authUser: undefined,
+  users: new Map<String, User>(),
 })
 
 export const getters = {
@@ -18,8 +19,11 @@ export const mutations = {
       Vue.set(this, user.id, user)
     }
   },
-  SET_USER (user: User) {
-    Vue.set(this, user.id, user)
+  SET_USER (state: any, user: any) {
+    const { uid, email, displayName, photoURL } = user.user
+    const newState = { ...state.users }
+    newState[uid] = new User(uid, 'username', displayName || 'name', email || '', photoURL || 'avatar_url')
+    state.users = newState
   },
   SET_AUTH_USER (state: any, id: string) {
     state.authUser = id
@@ -51,5 +55,12 @@ export const actions = {
       store.dispatch('conversations/createConversation', { title: 'Conversation' }, { root: true })
       doc.ref.set({ uid, email, displayName, photoURL })
     }
+  },
+  async fetchUsers () {
+    const ref = await (this as any).$fire.firestore.collection('users').get()
+
+    ref.docs.forEach((user: any) => {
+      (this as any).commit('users/SET_USER', { user: user.data() })
+    })
   },
 }
