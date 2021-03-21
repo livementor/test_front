@@ -18,7 +18,7 @@ export const mutations = {
 }
 
 export const actions = {
-  createConversation (conversation) {
+  createConversation (_, conversation) {
     if (!this.$fire.auth.currentUser) {
       return
     }
