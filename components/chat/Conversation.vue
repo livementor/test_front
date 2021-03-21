@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-y-auto h-full">
+  <div>
     <header class="space-y-0.5 text-center border-b-2">
       <p class="text-lg text-black font-semibold">
         {{ title }}

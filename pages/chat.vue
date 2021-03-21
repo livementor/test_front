@@ -1,9 +1,11 @@
 <template>
-  <div class="flex h-screen">
-    <div class="w-1/4">
-      <ConversationList class="border h-full" />
+  <div class="flex h-full">
+    <div class="w-1/4 border h-full overflow-y-scroll">
+      <ConversationList />
     </div>
-    <NuxtChild class="w-3/4 h-full" />
+    <div class="w-3/4 h-full overflow-y-scroll">
+      <NuxtChild />
+    </div>
   </div>
 </template>
 

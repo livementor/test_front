@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-16 bg-blue-livementor w-full items-center">
+  <div class="flex h-16 bg-blue-livementor w-full items-center py-2">
     <span class="text-center font-bold text-white text-24 m-auto">
       {{ $t('header.company') }}
     </span>
