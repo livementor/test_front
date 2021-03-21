@@ -4,12 +4,11 @@ import { User } from '../models/user'
 
 export const state = () => ({
   authUser: undefined,
-  users: new Map<String, User>(),
 })
 
 export const getters = {
   getUserById: (state: any) => (id: string) => {
-    return state.users[id]
+    return state[id]
   },
 }
 
@@ -17,16 +16,13 @@ export const mutations = {
   ON_AUTH_STATE_CHANGED_MUTATION (state: any, ctx: any) {
     if (ctx.authUser) {
       const { uid, email, displayName, photoURL } = ctx.authUser
-      const user = new User(uid, 'username', displayName || 'name', email || '', photoURL || 'avatar_url')
+      const user: User = new User(uid, 'username', displayName || 'name', email || '', photoURL || 'avatar_url')
       state.authUser = user.id
-      Vue.set(this, user.id, user)
+      Vue.set(state, user.id, user)
     }
   },
-  SET_USER (state: any, user: any) {
-    const { uid, email, displayName, photoURL } = user.user
-    const newState = { ...state.users }
-    newState[uid] = new User(uid, 'username', displayName || 'name', email || '', photoURL || 'avatar_url')
-    state.users = newState
+  SET_USER (state: any, { user }: { user: User }) {
+    Vue.set(state, user.id, user)
   },
   SET_AUTH_USER (state: any, id: string) {
     state.authUser = id
@@ -59,11 +55,12 @@ export const actions = {
       doc.ref.set({ uid, email, displayName, photoURL })
     }
   },
-  async fetchUsers () {
+  async fetchUsers (store: any) {
     const ref = await (this as any).$fire.firestore.collection('users').get()
-
-    ref.docs.forEach((user: any) => {
-      (this as any).commit('users/SET_USER', { user: user.data() })
+    ref.docs.forEach((userFire: any) => {
+      const { uid, email, displayName, photoURL } = userFire.data()
+      const user: User = new User(uid, 'username', displayName || 'name', email || '', photoURL || 'avatar_url')
+      store.commit('SET_USER', { user })
     })
   },
 }

@@ -29,7 +29,7 @@ import { State } from 'vuex-class'
 @Component
 export default class ConversationList extends Vue {
   @State(state => state.conversations) conversations:any
-  @State(state => state.users.users) users: any
+  @State(state => state.users) users: any
   @State(state => state.users.authUser) authUser: any
 }
 </script>
