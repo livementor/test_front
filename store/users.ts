@@ -63,4 +63,12 @@ export const actions = {
       store.commit('SET_USER', { user })
     })
   },
+  async fetchUserById (store: any, id: string) {
+    const doc = await (this as any).$fire.firestore.collection('users').doc(id).get()
+    if (doc.exists) {
+      const { uid, email, displayName, photoURL } = doc.data()
+      const user: User = new User(uid, 'username', displayName || 'name', email || '', photoURL || 'avatar_url')
+      store.commit('SET_USER', { user })
+    }
+  },
 }
