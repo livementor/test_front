@@ -6,20 +6,24 @@
       </p>
       <p class="text-sm text-black font-medium">
         <template v-for="(userName, index) in participants">
-          <template v-if="index > 0"> - </template>
+          <template v-if="index > 0">
+            {{ `, ` }}
+          </template>
           {{ userName }}
         </template>
       </p>
     </header>
     <div class="h-full">
       <template v-for="(message, index) in messages">
-        <div class="w-3/4 sm:py-2 sm:px-2 sm:my-2 sm:mx-2 rounded"
-          :class="{
-            'float-right': message.author === authUser,
-            'float-left' : message.author !== authUser,
-            'bg-blue-700': message.author === authUser,
-            'bg-blue-200' : message.author !== authUser,
-          }">
+        <div :key="index"
+             class="w-3/4 sm:py-2 sm:px-2 sm:my-2 sm:mx-2 rounded"
+             :class="{
+               'float-right': message.author === authUser,
+               'float-left' : message.author !== authUser,
+               'bg-blue-700': message.author === authUser,
+               'bg-blue-200' : message.author !== authUser,
+             }"
+        >
           <p>
             {{ message.text }}
           </p>
@@ -33,14 +37,16 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
 import { Getter, State } from 'vuex-class'
-import { User } from '@/models/user'
 
 const ConversationProps = Vue.extend({
   props: {
-    conversationId: String
-  }
+    conversationId: {
+      type: String,
+      default: null,
+    },
+  },
 })
 
 @Component
@@ -50,21 +56,24 @@ export default class Conversation extends ConversationProps {
   @Getter('users/getUserById') getUserById:any
   @State(state => state.users.authUser) authUser: any
 
-  mounted() {
-    if(this.conversationId)
+  mounted () {
+    if (this.conversationId) {
       this.$store.dispatch('messages/fetchMessagesForConversation', this.conversationId)
+    }
   }
 
-  get title() {
-    if(!this.conversationId)
-      return ""
+  get title () {
+    if (!this.conversationId) {
+      return ''
+    }
     const conv = this.getConversationById(this.conversationId)
-    return conv ? conv.title : ""
+    return conv ? conv.title : ''
   }
 
-  get participants() {
-    if(!this.conversationId)
+  get participants () {
+    if (!this.conversationId) {
       return []
+    }
     const conv = this.getConversationById(this.conversationId)
     if (!conv) {
       return []
