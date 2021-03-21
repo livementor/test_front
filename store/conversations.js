@@ -56,5 +56,10 @@ export const getters = {
   getConversations: (state) => {
     return state
   },
-
+  getConversationById: state => (id) => {
+    if (!id) {
+      return null
+    }
+    return state[id]
+  },
 }

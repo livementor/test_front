@@ -8,6 +8,9 @@ export default {
       return null
     }
     const conversation = rootState.conversations[conversationId]
+    if (!conversation) {
+      return null
+    }
     return _.orderBy(
       Object.values(_.pick(state, conversation.messages)),
       ['created_at'],

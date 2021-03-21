@@ -8,13 +8,13 @@
             {{ conversation.title }}
           </p>
           <p class="text-sm text-black font-medium">
-              <template v-if="users && authUser">
-                <template v-for="(userId, index) in conversation.participants">
-                  <template v-if="userId != authUser ">
-                    <span :key="index">{{ users[userId] && users[userId].name }}</span>
-                  </template>
+            <template v-if="users && authUser">
+              <template v-for="(userId, index) in conversation.participants">
+                <template v-if="userId != authUser ">
+                  <span :key="index">{{ users[userId] && users[userId].name }}</span>
                 </template>
               </template>
+            </template>
           </p>
         </div>
       </NuxtLink>
@@ -23,9 +23,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator'
-import { Getter, State } from 'vuex-class'
-import { User } from '@/models/user'
+import { Component, Vue } from 'vue-property-decorator'
+import { State } from 'vuex-class'
 
 @Component
 export default class ConversationList extends Vue {

@@ -3,7 +3,7 @@
     <div class="w-1/4">
       <ConversationList class="border h-full" />
     </div>
-    <NuxtChild class="w-3/4" />
+    <NuxtChild class="w-3/4 h-full" />
   </div>
 </template>
 

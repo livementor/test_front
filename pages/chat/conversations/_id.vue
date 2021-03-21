@@ -1,8 +1,6 @@
 <template>
   <div>
-    <span>
-      Conversation séléctionné {{ $route.params.id }}
-    </span>
+    <Conversation :conversationId="$route.params.id" />
   </div>
 </template>
 

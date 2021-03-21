@@ -8,6 +8,9 @@ export const state = () => ({
 })
 
 export const getters = {
+  getUserById: (state: any) => (id: string) => {
+    return state.users[id]
+  },
 }
 
 export const mutations = {
