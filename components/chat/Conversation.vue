@@ -13,7 +13,7 @@
         </template>
       </p>
     </header>
-    <div class="overflow-y-scroll" style="flex-grow: 1;">
+    <div ref="message-list" class="overflow-y-scroll" style="flex-grow: 1;">
       <template v-for="(message, index) in messages">
         <div :key="index"
              class="w-3/4 sm:py-2 sm:px-2 sm:my-2 sm:mx-2 rounded"
@@ -34,8 +34,8 @@
       </template>
     </div>
     <footer class="text-center border-t-2 px-3 py-3 flex space-x-3" style="flex-grow: 0;">
-      <textarea type="text" class="rounded border" style="flex-grow: 1;" />
-      <button class="p-3 border-blue-800 text-blue-800 hover:text-white rounded border-2 hover:bg-blue-700">
+      <textarea v-model="message" type="text" class="rounded border" style="flex-grow: 1;" />
+      <button class="p-3 border-blue-800 text-blue-800 hover:text-white rounded border-2 hover:bg-blue-700" @click="sendMessage">
         Envoyer
       </button>
     </footer>
@@ -43,8 +43,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import { Getter, State } from 'vuex-class'
+import { Component, Vue, Watch } from 'vue-property-decorator'
+import { Getter, State, Action } from 'vuex-class'
 // overflow-y-scroll
 const ConversationProps = Vue.extend({
   props: {
@@ -61,6 +61,9 @@ export default class Conversation extends ConversationProps {
   @Getter('messages/getMessagesForConversation') getMessagesForConversation:any
   @Getter('users/getUserById') getUserById:any
   @State(state => state.users.authUser) authUser: any
+  @Action('messages/createMessage') createMessage: any
+
+  private message: string = ''
 
   mounted () {
     if (this.conversationId) {
@@ -93,6 +96,33 @@ export default class Conversation extends ConversationProps {
   get messages () {
     const messages = this.getMessagesForConversation(this.conversationId)
     return messages || []
+  }
+
+  @Watch('messages')
+  onMessagesChanged () {
+    Vue.nextTick(() => {
+      const el = this.$refs['message-list']
+      if (el && el instanceof Element) {
+        el.scrollTo({
+          top: el.scrollHeight,
+          left: 0,
+          behavior: 'smooth',
+        })
+      }
+    })
+  }
+
+  sendMessage () {
+    if (this.message && this.message.length > 0) {
+      this.createMessage({
+        message: {
+          author: this.authUser,
+          text: this.message,
+        },
+        conversationId: this.conversationId,
+      })
+      this.message = ''
+    }
   }
 }
 </script>

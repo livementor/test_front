@@ -13,7 +13,7 @@ export default {
     }
     return _.orderBy(
       Object.values(_.pick(state, conversation.messages)),
-      ['created_at'],
+      ['createdAt'],
       ['asc'],
     )
   },
