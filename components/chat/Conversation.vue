@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <header class="space-y-0.5 text-center border-b-2">
+  <div class="flex h-full" style="flex-direction: column;">
+    <header class="space-y-0.5 text-center border-b-2" style="flex-grow: 0;">
       <p class="text-lg text-black font-semibold">
         {{ title }}
       </p>
@@ -13,7 +13,7 @@
         </template>
       </p>
     </header>
-    <div class="h-full">
+    <div class="overflow-y-scroll" style="flex-grow: 1;">
       <template v-for="(message, index) in messages">
         <div :key="index"
              class="w-3/4 sm:py-2 sm:px-2 sm:my-2 sm:mx-2 rounded"
@@ -33,13 +33,19 @@
         </div>
       </template>
     </div>
+    <footer class="text-center border-t-2 px-3 py-3 flex space-x-3" style="flex-grow: 0;">
+      <textarea type="text" class="rounded border" style="flex-grow: 1;" />
+      <button class="p-3 border-blue-800 text-blue-800 hover:text-white rounded border-2 hover:bg-blue-700">
+        Envoyer
+      </button>
+    </footer>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { Getter, State } from 'vuex-class'
-
+// overflow-y-scroll
 const ConversationProps = Vue.extend({
   props: {
     conversationId: {

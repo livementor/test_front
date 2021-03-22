@@ -3,7 +3,7 @@
     <div class="w-1/4 border h-full overflow-y-scroll">
       <ConversationList />
     </div>
-    <div class="w-3/4 h-full overflow-y-scroll">
+    <div class="w-3/4 h-full overflow-hidden">
       <NuxtChild />
     </div>
   </div>

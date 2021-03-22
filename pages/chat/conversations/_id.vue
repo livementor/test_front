@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <Conversation :conversationId="$route.params.id" />
-  </div>
+  <Conversation :conversationId="$route.params.id" />
 </template>
 
 <script lang="ts">
