@@ -7,6 +7,9 @@ export const state = () => ({
 })
 
 export const getters = {
+  getAuthUserId: (state: any) => {
+    return state.authUser
+  },
   getUserById: (state: any) => (id: string) => {
     return state[id]
   },

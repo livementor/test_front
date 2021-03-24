@@ -21,12 +21,7 @@
         </div>
       </template>
     </div>
-    <footer class="text-center border-t-2 px-3 py-3 flex space-x-3" style="flex-grow: 0;">
-      <textarea v-model="message" type="text" class="rounded border" style="flex-grow: 1;" />
-      <button class="p-3 border-blue-800 text-blue-800 hover:text-white rounded border-2 hover:bg-blue-700" @click="sendMessage">
-        Envoyer
-      </button>
-    </footer>
+    <ConversationFooter :conversationId="conversationId" />
   </div>
   <div v-else>
     Chargement de la conversation.
@@ -35,7 +30,7 @@
 
 <script lang="ts">
 import { Component, Vue, Watch, Prop } from 'vue-property-decorator'
-import { Getter, State, Action } from 'vuex-class'
+import { Getter, State } from 'vuex-class'
 
 @Component
 export default class Conversation extends Vue {
@@ -44,9 +39,6 @@ export default class Conversation extends Vue {
   @Getter('messages/getMessagesForConversation') getMessagesForConversation: any
   @Getter('users/getUserById') getUserById: any
   @State(state => state.users.authUser) authUser: any
-  @Action('messages/createMessage') createMessage: any
-
-  private message: string = ''
 
   mounted () {
     if (this.conversationId) {
@@ -75,19 +67,6 @@ export default class Conversation extends Vue {
         })
       }
     })
-  }
-
-  sendMessage () {
-    if (this.message && this.message.length > 0) {
-      this.createMessage({
-        message: {
-          author: this.authUser,
-          text: this.message,
-        },
-        conversationId: this.conversationId,
-      })
-      this.message = ''
-    }
   }
 }
 </script>
