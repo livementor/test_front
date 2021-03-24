@@ -1,18 +1,6 @@
 <template>
-  <div class="flex h-full" style="flex-direction: column;">
-    <header class="space-y-0.5 text-center border-b-2" style="flex-grow: 0;">
-      <p class="text-lg text-black font-semibold">
-        {{ title }}
-      </p>
-      <p class="text-sm text-black font-medium">
-        <template v-for="(userName, index) in participants">
-          <template v-if="index > 0">
-            {{ `, ` }}
-          </template>
-          {{ userName }}
-        </template>
-      </p>
-    </header>
+  <div v-if="conversation" class="flex h-full" style="flex-direction: column;">
+    <ConversationHeader :conversation="conversation" />
     <div ref="message-list" class="overflow-y-scroll" style="flex-grow: 1;">
       <template v-for="(message, index) in messages">
         <div :key="index"
@@ -40,26 +28,21 @@
       </button>
     </footer>
   </div>
+  <div v-else>
+    Chargement de la conversation.
+  </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator'
+import { Component, Vue, Watch, Prop } from 'vue-property-decorator'
 import { Getter, State, Action } from 'vuex-class'
-// overflow-y-scroll
-const ConversationProps = Vue.extend({
-  props: {
-    conversationId: {
-      type: String,
-      default: null,
-    },
-  },
-})
 
 @Component
-export default class Conversation extends ConversationProps {
-  @Getter('conversations/getConversationById') getConversationById:any
-  @Getter('messages/getMessagesForConversation') getMessagesForConversation:any
-  @Getter('users/getUserById') getUserById:any
+export default class Conversation extends Vue {
+  @Prop() conversationId!: string
+  @Getter('conversations/getConversationById') getConversationById: any
+  @Getter('messages/getMessagesForConversation') getMessagesForConversation: any
+  @Getter('users/getUserById') getUserById: any
   @State(state => state.users.authUser) authUser: any
   @Action('messages/createMessage') createMessage: any
 
@@ -71,26 +54,8 @@ export default class Conversation extends ConversationProps {
     }
   }
 
-  get title () {
-    if (!this.conversationId) {
-      return ''
-    }
-    const conv = this.getConversationById(this.conversationId)
-    return conv ? conv.title : ''
-  }
-
-  get participants () {
-    if (!this.conversationId) {
-      return []
-    }
-    const conv = this.getConversationById(this.conversationId)
-    if (!conv) {
-      return []
-    }
-    return conv.participants.map((p: string) => {
-      const user = this.getUserById(p)
-      return user ? user.name : p
-    })
+  get conversation () {
+    return this.getConversationById(this.conversationId)
   }
 
   get messages () {
