@@ -10,6 +10,9 @@ export const getters = {
   getUserById: (state: any) => (id: string) => {
     return state[id]
   },
+  getUserNameById: (state: any) => (id: string) => {
+    return (state[id] && state[id].name) || 'Unknown'
+  },
 }
 
 export const mutations = {
