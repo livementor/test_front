@@ -12,10 +12,21 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Getter } from 'vuex-class'
+
+const dummyConvValue = {
+  title: '',
+  participants: [],
+}
 
 @Component
 export default class ConversationHeader extends Vue {
-  @Prop() conversation:any
+  @Prop() conversationId:any
+  @Getter('conversations/getConversationById') getConversationById: any
+
+  get conversation () {
+    return this.getConversationById(this.conversationId) || dummyConvValue
+  }
 }
 </script>
 
