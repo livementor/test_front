@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="{id, createdAt, text} in conversationMessages" :key="id">
-      <span>{{ new Date(createdAt) }}</span>
+      <span>{{ new Date(createdAt) | date('EEEE, MMMM do, HH:mm') }}</span>
       <p>{{ text }}</p>
     </div>
   </div>
