@@ -1,7 +1,9 @@
 <template>
   <div>
     <div v-for="{id, createdAt, text} in conversationMessages" :key="id">
-      <span>{{ new Date(createdAt) | date('EEEE, MMMM do, HH:mm') }}</span>
+      <div class="flex flex-col items-center text-gray-600 text-xs">
+        {{ new Date(createdAt) | date('EEEE, MMMM do, HH:mm') | toUpperCase }}
+      </div>
       <p>{{ text }}</p>
     </div>
   </div>
@@ -13,7 +15,16 @@ import { Message } from '~/models/message'
 
 const messagesModule = namespace('messages')
 
-@Component
+@Component({
+  filters: {
+    toUpperCase (value?: string): string {
+      if (!value) {
+        return ''
+      }
+      return value.toString().toUpperCase()
+    },
+  },
+})
 export default class Conversations extends Vue {
   @messagesModule.Action('fetchMessagesForConversation') fetchMessagesForConversation: any
   @messagesModule.Getter('getMessagesForConversation') getMessagesForConversation!: (conversationId: string) => Message[]
