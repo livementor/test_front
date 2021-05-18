@@ -38,6 +38,8 @@ export default class ConversationList extends Vue {
 
   padding: var(--conversation-padding);
 
+  border-radius: 8px;
+
 }
 
 a.nuxt-link-exact-active {
