@@ -34,7 +34,7 @@ export default {
 
     messages.forEach(message => store.dispatch('messages/createMessage', message, { root: true }))
 
-    store.commit('conversations/SET_CONVERSATION', {
+    store.commit('SET_CONVERSATION', {
       id: ref.id,
       conversation: ref,
     })
@@ -50,7 +50,7 @@ export default {
     const ref = await this.$fire.firestore.collection('conversations').where('participants', 'array-contains', currentUser.uid).get()
 
     ref.docs.forEach((conversation: any) => {
-      store.commit('conversations/SET_CONVERSATION', {
+      store.commit('SET_CONVERSATION', {
         id: conversation.id,
         conversation: conversation.data(),
       })
