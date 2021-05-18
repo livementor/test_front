@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div v-if="error.statusCode === 404">
+    <div v-if="error && error.statusCode === 404">
       <h1>Page not found</h1>
       <p>
         {{ error.message }}
@@ -15,13 +15,11 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    error: {
-      type: Object,
-      default: () => {},
-    },
-  },
+<script lang="ts">
+import { Component, Prop, Vue } from 'nuxt-property-decorator'
+
+@Component
+export default class Default extends Vue {
+  @Prop() error: any = {}
 }
 </script>

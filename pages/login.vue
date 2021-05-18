@@ -4,7 +4,7 @@
       {{ $t('login.welcome') }}
     </p>
     <p class="text-gray-text text-16 mb-3">
-      {{ getSubtitle }}
+      {{ subtitle }}
     </p>
     <div v-if="shouldLogin || shouldRegister" class="w-64 m-auto">
       <input v-model="email"
@@ -23,48 +23,44 @@
 </template>
 
 <script>
+import { Component, Vue } from 'nuxt-property-decorator'
 import { NotificationType } from '~/models/notification'
 
-export default {
-  data: () => {
-    return {
-      email: '',
-      displayName: '',
-      password: '',
-      shouldLogin: false,
-      shouldRegister: false,
+@Component
+export default class Login extends Vue {
+  email = ''
+  displayName = ''
+  password = ''
+  shouldLogin = false
+  shouldRegister = false
+
+  get subtitle () {
+    if (!this.shouldLogin && !this.shouldRegister) {
+      return this.$t('login.default')
     }
-  },
-  computed: {
-    getSubtitle () {
-      if (!this.shouldLogin && !this.shouldRegister) {
-        return this.$t('login.default')
-      }
-      return this.shouldLogin ? this.$t('login.login') : this.$t('login.register')
-    },
-  },
-  methods: {
-    buttonClicked () {
-      if (this.shouldRegister) {
-        this.$fire.auth.createUserWithEmailAndPassword(this.email, this.password).then((response) => {
-          if (response.user) {
-            this.$store.dispatch('users/setAuthUser', response.user.uid)
-            this.$router.replace('/chat')
-          }
-        }).catch((e) => {
-          this.$store.dispatch('showNotification', { message: e.message, type: NotificationType.ERROR })
-        })
-      } else {
-        this.$fire.auth.signInWithEmailAndPassword(this.email, this.password).then((response) => {
-          if (response.user) {
-            this.$store.dispatch('users/setAuthUser', response.user.uid)
-            this.$router.replace('/chat')
-          }
-        }).catch((e) => {
-          this.$store.dispatch('showNotification', { message: e.message, type: NotificationType.ERROR })
-        })
-      }
-    },
-  },
+    return this.shouldLogin ? this.$t('login.login') : this.$t('login.register')
+  }
+
+  buttonClicked () {
+    if (this.shouldRegister) {
+      this.$fire.auth.createUserWithEmailAndPassword(this.email, this.password).then((response) => {
+        if (response.user) {
+          this.$store.dispatch('users/setAuthUser', response.user.uid)
+          this.$router.replace('/chat')
+        }
+      }).catch((e) => {
+        this.$store.dispatch('showNotification', { message: e.message, type: NotificationType.ERROR })
+      })
+    } else {
+      this.$fire.auth.signInWithEmailAndPassword(this.email, this.password).then((response) => {
+        if (response.user) {
+          this.$store.dispatch('users/setAuthUser', response.user.uid)
+          this.$router.replace('/chat')
+        }
+      }).catch((e) => {
+        this.$store.dispatch('showNotification', { message: e.message, type: NotificationType.ERROR })
+      })
+    }
+  }
 }
 </script>

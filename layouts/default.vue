@@ -1,22 +1,17 @@
 <template>
   <div>
-    <HeaderComponent />
+    <Header />
     <GlobalNotification v-if="getNotification !== undefined" :notification="getNotification" />
     <Nuxt />
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { mapGetters } from 'vuex'
-import HeaderComponent from '~/components/global/LMHeader.vue'
-import GlobalNotification from '~/components/global/GlobalNotification.vue'
+import { Component, Getter, Vue } from 'nuxt-property-decorator'
+import { Notification } from '~/models/notification'
 
-export default Vue.extend({
-  components: { HeaderComponent, GlobalNotification },
-  computed: {
-    ...mapGetters(['getNotification']),
-  },
-
-})
+@Component
+export default class Default extends Vue {
+  @Getter getNotification?: Notification
+}
 </script>

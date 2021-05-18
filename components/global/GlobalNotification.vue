@@ -7,18 +7,18 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
+import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator'
+
 import { Notification, NotificationType } from '~/models/notification'
 
 @Component
 export default class GlobalNotification extends Vue {
   @Prop() notification?: Notification
+
   @Watch('notification', { immediate: true })
-  onError (val: Notification, _: unknown) {
+  onError (val?: Notification) {
     if (val !== undefined) {
-      setTimeout(() => {
-        this.$store.dispatch('hideNotification')
-      }, 5000)
+      setTimeout(() => this.$store.dispatch('hideNotification'), 5000)
     }
   }
 

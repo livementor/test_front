@@ -10,12 +10,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import { Getter } from 'vuex-class'
+import { Component, namespace, Vue } from 'nuxt-property-decorator'
+
+const conversationsModule = namespace('conversations')
 
 @Component
 export default class ConversationList extends Vue {
-  @Getter('conversations/getConversations') getConversations:any
+  @conversationsModule.Getter('getConversations') getConversations:any
 
   get conversationsIds () {
     if (!this.$fire.auth.currentUser) {
