@@ -1,10 +1,9 @@
-
 export enum NotificationType {
   ERROR,
   SUCCESS
 }
 
-export interface INotification {
+export interface Notification {
   message: string
   type: NotificationType,
 }

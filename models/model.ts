@@ -1,7 +1,5 @@
 type ObjectId = string;
 
-interface IModel {
+export interface FirebaseObject {
   id: ObjectId;
 }
-
-export { IModel };

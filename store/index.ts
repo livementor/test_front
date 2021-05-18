@@ -1,38 +1,43 @@
+import { Store } from 'vuex'
 import { vuexfireMutations } from 'vuexfire'
-import { INotification } from '~/models/notification'
+import { Notification } from '~/models/notification'
+import { ConversationsState } from '~/store/conversations/state'
+import { MessagesState } from '~/store/messages/state'
+import { UsersState } from '~/store/users/state'
 
-export interface IState {
+export interface RootState {
   locale: string
-  notification?: INotification
+  notification?: Notification
   locales: Array<string>
-  conversations?: Map<string, any>
-  users?:Map<string, any>
+  conversations?: ConversationsState
+  messages?: MessagesState
+  users?: UsersState
 }
 
-export const state = ():IState => ({
+export const state = ():RootState => ({
   locales: ['en', 'fr'],
   locale: 'fr',
   notification: undefined,
 })
 
 export const getters = {
-  getNotification (state: IState) {
+  getNotification (state: RootState) {
     return state.notification
   },
 }
 
 export const mutations = {
   ...vuexfireMutations,
-  SET_NOTIFICATION: (state: IState, payload?: INotification) => {
-    state.notification = payload
+  SET_NOTIFICATION: (state: RootState, notification?: Notification) => {
+    state.notification = notification
   },
 }
 
 export const actions = {
-  showNotification (store: any, payload: any) {
-    store.commit('SET_NOTIFICATION', payload)
+  showNotification (store: Store<RootState>, notification: Notification) {
+    store.commit('SET_NOTIFICATION', notification)
   },
-  hideNotification (store: any) {
+  hideNotification (store: Store<RootState>) {
     store.commit('SET_NOTIFICATION', undefined)
   },
 }

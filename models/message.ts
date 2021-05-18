@@ -1,15 +1,8 @@
-import { IModel } from './model'
+import { FirebaseObject } from './model'
 
-class Message implements IModel {
+export interface Message extends FirebaseObject {
   id: string;
-  createdAt: Date;
+  createdAt: number;
   author: string;
 
-  constructor(id: string, createdAt: Date, author: string) {
-    this.id = id
-    this.createdAt = createdAt
-    this.author = author
-  }
 }
-
-export { Message };
