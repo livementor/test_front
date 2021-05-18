@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { NotificationType } from '@/models/notification'
+import { NotificationType } from '~/models/notification'
 
 export default {
   data: () => {
