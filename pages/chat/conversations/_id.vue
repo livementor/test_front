@@ -1,12 +1,12 @@
 <template>
-  <div class="m-4">
+  <div class="p-4 bg-gray-100">
     <div v-for="([createdAt, messages]) in Object.entries(conversationMessages)" :key="createdAt">
       <div class="flex flex-col items-center text-gray-600 text-xs">
         {{ new Date(+createdAt) | date('EEEE, MMMM do, HH:mm') | toUpperCase }}
       </div>
       <div class="flex">
         <img class="participant-img rounded-full mr-4" src="https://picsum.photos/48/48" alt="participant picture">
-        <p class="p-3 my-2 inline-block shadow rounded-sm">
+        <p class="p-3 my-2 inline-block shadow rounded-sm bg-white">
           <span v-for="{ id, text } in messages" :key="id" class="block">
             {{ text }}
           </span>
