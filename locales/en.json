@@ -20,6 +20,7 @@
   },
   "chat": {
     "noConversation": "No selected conversation",
-    "messages": "Messages"
+    "messages": "Messages",
+    "writeSomething": "Write Something"
   }
 }
