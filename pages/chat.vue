@@ -34,7 +34,7 @@ export default class Chat extends Vue {
       await Promise.all(promises)
       this.isUsersFetched = true
     } catch (error) {
-      // @todo: show a toast or an undertandable error to the user
+      // @todo: show a toast or an understandable error to the user
       // eslint-disable-next-line no-console
       console.error(error)
     }
@@ -45,7 +45,7 @@ export default class Chat extends Vue {
       await this.$store.dispatch('conversations/fetchConversationsForCurrentUser')
       this.isConversationsFetched = true
     } catch (error) {
-      // @todo: show a toast or an undertandable error to the user
+      // @todo: show a toast or an understandable error to the user
       // eslint-disable-next-line no-console
       console.error(error)
     }

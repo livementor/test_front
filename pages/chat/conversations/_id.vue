@@ -30,7 +30,7 @@ export default class Conversations extends Vue {
       )
       this.isMessagesFetched = true
     } catch (error) {
-      // @todo: show a toast or an undertandable error to the user
+      // @todo: show a toast or an understandable error to the user
       // eslint-disable-next-line no-console
       console.error(error)
     }
