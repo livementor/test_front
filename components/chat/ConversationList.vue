@@ -1,11 +1,12 @@
 <template>
-  <div>
-    <span>Conversations ids</span>
-    <div v-for="(id, index) in conversationsIds" :key="index">
-      <NuxtLink :to="`/chat/conversations/${id}`" class="text-blue-livementor">
-        {{ id }}
-      </NuxtLink>
-    </div>
+  <div class="ConversationList">
+    <b-list-group>
+      <conversation-list-item
+        v-for="(conversation, key) in getConversations"
+        :key="key"
+        :conversation="conversation"
+      />
+    </b-list-group>
   </div>
 </template>
 
@@ -16,12 +17,12 @@ import { Getter } from 'vuex-class'
 @Component
 export default class ConversationList extends Vue {
   @Getter('conversations/getConversations') getConversations:any
-
-  get conversationsIds () {
-    if (!this.$fire.auth.currentUser) {
-      return []
-    }
-    return Object.keys(this.getConversations)
-  }
 }
 </script>
+
+<style scoped>
+.ConversationList {
+  /* Header height = 64px*/
+  height: calc(100vh - 64px);
+}
+</style>

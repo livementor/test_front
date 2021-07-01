@@ -75,6 +75,7 @@ export default {
         },
       },
     ],
+    ['bootstrap-vue/nuxt'],
   ],
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {

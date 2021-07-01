@@ -30,9 +30,6 @@ export const actions = {
     conversation.participants = [this.$fire.auth.currentUser.uid, 'bmAaBLtmpHYqHDOH875oVsVNbhV2']
     conversation.id = ref.id
     ref.set(conversation)
-    this.commit('conversations/SET_CONVERSATION', { id: ref.id, conversation })
-    this.dispatch('messages/createMessage', { conversationId: ref.id, message: { author: 'bmAaBLtmpHYqHDOH875oVsVNbhV2', text: 'Bonjour' } }, { root: true })
-    this.dispatch('messages/createMessage', { conversationId: ref.id, message: { author: this.$fire.auth.currentUser.uid, text: 'Bonjour' } }, { root: true })
   },
 
   async fetchConversations () {
@@ -47,10 +44,12 @@ export const actions = {
     if (!this.$fire.auth.currentUser) {
       return
     }
+
     const ref = await this.$fire.firestore.collection('conversations').where('participants', 'array-contains', this.$fire.auth.currentUser.uid).get()
 
     ref.docs.forEach((conversation) => {
-      this.commit('conversations/SET_CONVERSATION', { id: conversation.id, conversation: conversation.data() })
+      const conversationData = conversation.data()
+      this.commit('conversations/SET_CONVERSATION', { id: conversation.id, conversation: conversationData })
     })
   },
 }
@@ -59,5 +58,4 @@ export const getters = {
   getConversations: (state) => {
     return state
   },
-
 }
