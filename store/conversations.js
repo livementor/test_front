@@ -48,8 +48,7 @@ export const actions = {
     const ref = await this.$fire.firestore.collection('conversations').where('participants', 'array-contains', this.$fire.auth.currentUser.uid).get()
 
     ref.docs.forEach((conversation) => {
-      const conversationData = conversation.data()
-      this.commit('conversations/SET_CONVERSATION', { id: conversation.id, conversation: conversationData })
+      this.commit('conversations/SET_CONVERSATION', { id: conversation.id, conversation: conversation.data() })
     })
   },
 }
