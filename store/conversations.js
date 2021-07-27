@@ -45,11 +45,11 @@ export const actions = {
       return
     }
     const ref = await this.$fire.firestore.collection('conversations').where('participants', 'array-contains', this.$fire.auth.currentUser.uid).get()
-    const recipientIds = ref.docs.map(conversation => {
-      return conversation.data().participants.filter(participant => participant != this.$fire.auth.currentUser.uid)[0]
-    });
+    const recipientIds = ref.docs.map((conversation) => {
+      return conversation.data().participants.filter(participant => participant !== this.$fire.auth.currentUser.uid)[0]
+    })
     if (recipientIds.length > 0) {
-      this.dispatch("users/fetchUsers", [...new Set(recipientIds)])
+      this.dispatch('users/fetchUsers', [...new Set(recipientIds)], { root: true })
     }
     ref.docs.forEach((conversation) => {
       this.commit('conversations/SET_CONVERSATION', { id: conversation.id, conversation: conversation.data() })
@@ -61,7 +61,7 @@ export const getters = {
   getConversations: (state) => {
     return state
   },
-  getConversationById: (state) => (id) => {
+  getConversationById: state => (id) => {
     return state[id]
-  }
+  },
 }

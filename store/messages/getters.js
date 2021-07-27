@@ -10,7 +10,7 @@ export default {
     const conversation = rootState.conversations[conversationId]
     return _.orderBy(
       Object.values(_.pick(state, conversation.messages)),
-      ['created_at'],
+      ['createdAt'],
       ['asc'],
     )
   },

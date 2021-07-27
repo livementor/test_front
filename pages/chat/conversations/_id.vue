@@ -4,7 +4,7 @@
       <avatar :user="recipient" />
       <p class="ml-4">{{ recipient ? recipient.name : "" }}</p>
     </div>
-    <div class="flex flex-col flex-auto py-2ß">
+    <div class="flex flex-col flex-auto py-2 overflow-scroll">
       <div
         :class="{ 'flex-row-reverse': message.author === currentUserId }"
         class="w-full px-4 py-2 flex"
@@ -16,8 +16,14 @@
             :user="message.author === currentUserId ? currentUser : recipient"
           />
         </div>
-        <div class="mx-2 shadow-sm rounded-md p-4 bg-white max-w-sm">
-          <p class="whitespace-pre">{{ message.text }}</p>
+        <div
+          class="mx-2 shadow-sm rounded-md p-2 bg-white max-w-sm"
+          style="min-width: 20rem"
+        >
+          <p class="whitespace-pre px-2 pt-1 pb-2">{{ message.text }}</p>
+          <p class="text-xs text-gray-700 text-right pr-2">
+            Envoyé le {{ new Date(message.createdAt).toLocaleString() }}
+          </p>
         </div>
       </div>
     </div>
@@ -28,11 +34,7 @@
         :placeholder="$t('chat.messagePlaceholder')"
       >
       </textarea>
-      <button
-        @click="sendClicked"
-        :disabled="!message"
-        class="btn btn-primary"
-      >
+      <button @click="sendClicked" :disabled="!message" class="btn btn-primary">
         Envoyer
       </button>
     </div>
@@ -48,12 +50,18 @@ export default {
       message: "",
     };
   },
-  mounted() {
-    this.$store.dispatch(
-      "messages/fetchMessagesForConversation",
-      this.$route.params.id
-    );
+  watch: {
+    "$route.params.id": {
+      immediate: true,
+      handler(conversationId) {
+        this.$store.dispatch(
+          "messages/fetchMessagesForConversation",
+          conversationId
+        );
+      },
+    },
   },
+
   computed: {
     ...mapGetters({
       getMessages: "messages/getMessagesForConversation",

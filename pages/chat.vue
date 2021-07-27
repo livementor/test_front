@@ -1,6 +1,6 @@
 <template>
   <div class="flex">
-    <div class="w-1/4 border-r" style="height: calc(100vh - 64px);">
+    <div class="w-1/4 border-r overflow-scroll" style="height: calc(100vh - 64px);">
       <ConversationList />
     </div>
     <NuxtChild class="w-3/4" />

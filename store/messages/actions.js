@@ -11,7 +11,7 @@ export default {
 
   async fetchMessagesForConversation (_, conversationId) {
     const ref = await this.$fire.firestore.collection('conversations').doc(conversationId).collection('messages').get()
-    this.commit('conversations/SET_MESSAGES', { conversationId, messages: ref.docs })
+    this.commit('conversations/SET_MESSAGES', { conversationId, messages: ref.docs }, { root: true })
     this.commit('messages/SET_MESSAGES', { messages: ref.docs.map(m => m.data()) })
   },
 }

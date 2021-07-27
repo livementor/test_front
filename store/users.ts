@@ -9,7 +9,7 @@ export const state = () => ({
 export const getters = {
   getUserById: (state: any) => (id: any) => {
     return state[id]
-  }
+  },
 }
 
 export const mutations = {
@@ -55,18 +55,18 @@ export const actions = {
       doc.ref.set({ uid, email, displayName, photoURL })
     }
   },
-  async fetchUser(store: any, userId: string) {
+  async fetchUser (store: any, userId: string) {
     const doc = await (this as any).$fire.firestore.collection('users').doc(userId).get()
     if (doc.exists) {
-      const data = doc.data();
-      store.commit("SET_USER", new User(data.uid, data.email, data.displayName, data.email, data.photoURL))
+      const data = doc.data()
+      store.commit('SET_USER', new User(data.uid, data.email, data.displayName, data.email, data.photoURL))
     }
   },
-  async fetchUsers(store: any, userIds: string[]) {
+  async fetchUsers (store: any, userIds: string[]) {
     const ref = await (this as any).$fire.firestore.collection('users').where('uid', 'in', userIds).get()
     ref.docs.forEach((user: any) => {
-      const data = user.data();
+      const data = user.data()
       store.commit('SET_USER', new User(data.uid, data.email, data.displayName, data.email, data.photoURL))
     })
-  }
+  },
 }
