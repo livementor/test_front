@@ -1,10 +1,10 @@
 <template>
   <div class="flex">
-    <div class="w-1/4">
-      <span class="font-bold text-24 mb-20">
-        Chat Layout
+    <div class="w-1/4 border-r" style="height: calc(100vh - 64px);">
+      <span class="hidden font-bold text-20 mb-20">
+        Conversations
       </span>
-      <ConversationList class="border" />
+      <ConversationList class="" />
     </div>
     <NuxtChild class="w-3/4" />
   </div>
