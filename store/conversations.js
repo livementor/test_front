@@ -27,9 +27,10 @@ export const actions = {
     conversation.id = ref.id
     ref.set(conversation)
 
+    this.commit('conversations/SET_CONVERSATION', { id: ref.id, conversation })
+    this.dispatch('users/fetchUser', 'bmAaBLtmpHYqHDOH875oVsVNbhV2', { root: true })
     this.dispatch('messages/createMessage', { conversationId: ref.id, message: { author: 'bmAaBLtmpHYqHDOH875oVsVNbhV2', text: 'Bonjour' } }, { root: true })
     this.dispatch('messages/createMessage', { conversationId: ref.id, message: { author: this.$fire.auth.currentUser.uid, text: 'Bonjour' } }, { root: true })
-    this.commit('conversations/SET_CONVERSATION', { id: ref.id, conversation })
   },
 
   async fetchConversations () {
