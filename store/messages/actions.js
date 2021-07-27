@@ -6,7 +6,7 @@ export default {
     payload.message.createdAt = Date.now()
     ref.set(payload.message)
     this.commit('conversations/SET_MESSAGE', { conversationId: payload.conversationId, message: ref }, { root: true })
-    this.commit('messages/SET_MESSAGES', { conversationId: payload.conversationId, messages: [ref] })
+    this.commit('messages/SET_MESSAGES', { conversationId: payload.conversationId, messages: [payload.message] })
   },
 
   async fetchMessagesForConversation (_, conversationId) {

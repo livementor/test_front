@@ -18,7 +18,7 @@ export const mutations = {
 }
 
 export const actions = {
-  createConversation (conversation) {
+  createConversation (_, conversation) {
     if (!this.$fire.auth.currentUser) {
       return
     }
@@ -29,7 +29,7 @@ export const actions = {
 
     this.dispatch('messages/createMessage', { conversationId: ref.id, message: { author: 'bmAaBLtmpHYqHDOH875oVsVNbhV2', text: 'Bonjour' } }, { root: true })
     this.dispatch('messages/createMessage', { conversationId: ref.id, message: { author: this.$fire.auth.currentUser.uid, text: 'Bonjour' } }, { root: true })
-    this.commit('conversations/SET_CONVERSATION', { id: ref.id, conversation: ref })
+    this.commit('conversations/SET_CONVERSATION', { id: ref.id, conversation })
   },
 
   async fetchConversations () {
