@@ -19,6 +19,7 @@
     "start": "Start"
   },
   "chat": {
-    "noConversation": "Pas de conversation séléctionnée"
+    "noConversation": "Pas de conversation séléctionnée",
+    "messagePlaceholder": "Écrivez votre message"
   }
 }

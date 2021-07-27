@@ -27,7 +27,7 @@ export default class Avatar extends Vue {
   @Prop({ default: 36 }) size!: number;
 
   get initials() {
-    return this.user.name
+    return this.user?.name
       .split(" ")
       .map((str) => str[0])
       .join("");
