@@ -59,5 +59,8 @@ export const getters = {
   getConversations: (state) => {
     return state
   },
+  getConversationsById: state => (id) => {
+    return state[id]
+  },
 
 }

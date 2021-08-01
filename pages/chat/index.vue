@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="chat-content">
     {{ $t('chat.noConversation') }}
   </div>
 </template>

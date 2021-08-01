@@ -1,5 +1,7 @@
 <template>
-  <div />
+  <div class="conversations-list">
+    liste
+  </div>
 </template>
 
 <script lang="ts">
@@ -11,6 +13,8 @@ export default class ConversationRoot extends Vue {
 }
 </script>
 
-<style scoped>
-
+<style>
+.conversations-list {
+  background-color: #252526;
+}
 </style>

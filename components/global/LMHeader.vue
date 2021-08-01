@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-16 bg-blue-livementor w-full items-center">
+  <div class="lm-header flex h-16 w-full items-center">
     <span class="text-center font-bold text-white text-24 m-auto">
       {{ $t('header.company') }}
     </span>
@@ -31,3 +31,9 @@ export default class HeaderComponent extends Vue {
   }
 }
 </script>
+
+<style>
+.lm-header {
+  background-color: #323233;
+}
+</style>
