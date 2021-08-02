@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="default">
     <HeaderComponent />
     <GlobalNotification v-if="getNotification !== undefined" :notification="getNotification" />
-    <Nuxt />
+    <Nuxt class="nuxt" />
   </div>
 </template>
 
@@ -20,3 +20,13 @@ export default Vue.extend({
 
 })
 </script>
+<style>
+  body, html, div#__nuxt,
+  #__layout,
+  #__layout > div,
+  #app,
+  .nuxt {
+    height: 100%;
+    overflow-y: hidden;
+  }
+</style>

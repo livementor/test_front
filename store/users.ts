@@ -7,6 +7,9 @@ export const state = () => ({
 })
 
 export const getters = {
+  getUserById: (state:any) => (userId:any) => {
+    return state[userId]
+  },
 }
 
 export const mutations = {
@@ -53,5 +56,12 @@ export const actions = {
       store.dispatch('conversations/createConversation', { title: 'Conversation' }, { root: true })
       store.commit('CREATE_USER', { ref: doc.ref, user: { uid, email, displayName, photoURL } })
     }
+  },
+  async fetchUsers (store: any, userIds: any) {
+    const _this:any = this
+    const ref = await _this.$fire.firestore.collection('users').where('uid', 'in', userIds).get()
+    ref.docs.forEach((user:any) => {
+      store.commit('SET_USER', { id: user.id, user: user.data() })
+    })
   },
 }
