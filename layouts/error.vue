@@ -9,9 +9,7 @@
     <div v-else>
       <h1>An error occurred</h1>
     </div>
-    <n-link to="/">
-      Home page
-    </n-link>
+    <n-link to="/"> Home page </n-link>
   </div>
 </template>
 
@@ -23,5 +21,5 @@ export default {
       default: () => {},
     },
   },
-}
+};
 </script>

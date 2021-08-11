@@ -2,20 +2,31 @@ module.exports = {
   root: true,
   env: {
     browser: true,
-    node: true,
+    node: true
+  },
+  parserOptions: {
+    parser: 'babel-eslint'
   },
   extends: [
-    'plugin:vue/recommended',
-    '@nuxtjs/eslint-config-typescript',
+    '@nuxtjs',
+    'plugin:prettier/recommended',
+    'plugin:nuxt/recommended'
   ],
-  plugins: ['vue'],
+  plugins: ['prettier'],
   // add your custom rules here
   rules: {
-    'no-extra-parens': 2, // https: //eslint.org/docs/rules/no-extra-parens
-    curly: 2, // https: //eslint.org/docs/rules/curly
-    eqeqeq: 2, // https: //eslint.org/docs/rules/eqeqeq
-    'comma-dangle': ['error', 'always-multiline'],
-    'vue/max-attributes-per-line': 0, // https: //eslint.vuejs.org/rules/max-attributes-per-line.html
-    'vue/attribute-hyphenation': 0, // https: //eslint.vuejs.org/rules/attribute-hyphenation.html
-  },
+    'import/no-named-as-default': 0,
+    'vue/comment-directive': 0
+    /* "no-irregular-whitespace": [
+      "error",
+      {
+        "skipStrings": true,
+        "skipComments": true,
+        "skipRegExps": true,
+        "skipTemplates": true,
+        "skipHTMLAttributeValues": true,
+        "skipHTMLTextContents": true,
+      },
+    ], */
+  }
 }

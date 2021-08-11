@@ -1,20 +1,28 @@
 <template>
   <div>
-    <span>
-      Conversation séléctionné {{ $route.params.id }}
-    </span>
+    <ConversationDiscussion
+      :messages="getMessagesForConversation($route.params.id)"
+    />
+    <ConversationInput />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator'
+import { Component, Vue, Watch } from "vue-property-decorator";
+import { Getter, State } from "vuex-class";
 
 @Component
 export default class Conversations extends Vue {
-  currentroot = 'no route'
-  @Watch('$route')
-  onPropertyChanged (value: any, _: any) {
-    this.currentroot = value.params.id
+  @State("conversations") conversations: any;
+  @Getter("messages/getMessagesForConversation")
+  getMessagesForConversation: any;
+
+  currentroot = "no route";
+  messages = [];
+  @Watch("$route")
+  onPropertyChanged(value: any, _: any) {
+    this.currentroot = value.params.id;
+    this.messages = this.getMessagesForConversation(value.params.id);
   }
 }
 </script>

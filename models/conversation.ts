@@ -1,4 +1,4 @@
-import { IModel} from './model';
+import { IModel } from "./model";
 
 class Conversation implements IModel {
   id: string = "";
@@ -7,4 +7,4 @@ class Conversation implements IModel {
   unreadFor: Array<string> = [];
 }
 
-export {Conversation};
+export { Conversation };
