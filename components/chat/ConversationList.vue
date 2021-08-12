@@ -2,7 +2,9 @@
   <div>
     <span>Conversations ids</span>
     <div v-for="(id, index) in conversationsIds" :key="index">
-      <NuxtLink :to="`/chat/conversations/${id}`" class="text-blue-livementor">
+      <NuxtLink :to="`/chat/conversations/${id}`"
+                class="text-blue-livementor"
+      >
         {{ id }}
       </NuxtLink>
     </div>
