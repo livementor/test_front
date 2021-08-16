@@ -6,7 +6,7 @@
     <div class="bg-white">
       <ul>
         <li
-          v-for="(id, index) in conversationsIds"
+          v-for="(conversation, index) in conversations"
           :key="index"
           class="flex items-center p-3 hover:bg-blue-100 hover:text-blue-50"
         >
@@ -15,10 +15,10 @@
             src="https://picsum.photos/100"
             alt="Avatar of Writer"
           >
-          <NuxtLink :to="`/chat/conversations/${id}`" class="text-blue-livementor">
+          <NuxtLink :to="`/chat/conversations/${conversation.id}`" class="text-blue-livementor">
             <div class="text-sm">
               <p class="text-gray-900 leading-none">
-                {{ id }}
+                {{ conversation.title }}
               </p>
               <p class="text-gray-600">
                 Aug 18
@@ -51,16 +51,18 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { Getter } from 'vuex-class'
+import { Conversation } from '~/models/conversation'
 
 @Component
 export default class ConversationList extends Vue {
   @Getter('conversations/getConversations') getConversations: any
 
-  get conversationsIds () {
+  get conversations (): Array<Conversation> {
     if (!this.$fire.auth.currentUser) {
       return []
     }
-    return Object.keys(this.getConversations)
+
+    return this.getConversations
   }
 }
 </script>
