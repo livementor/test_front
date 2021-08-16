@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg-fixed" style="background-image: url(/chat_wallpaper_1920x1080.png)">
     <span>
       Conversation séléctionné {{ $route.params.id }}
     </span>
