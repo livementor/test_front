@@ -15,7 +15,10 @@
             src="https://picsum.photos/100"
             alt="Avatar of Writer"
           >
-          <NuxtLink :to="`/chat/conversations/${conversation.id}`" class="text-blue-livementor">
+          <NuxtLink
+            :to="`/chat/conversations/${conversation.id}`"
+            class="text-blue-livementor"
+          >
             <div class="text-sm">
               <p class="text-gray-900 leading-none">
                 {{ conversation.title }}
