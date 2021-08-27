@@ -48,7 +48,17 @@ export default class MessageCard extends Vue {
         this.message &&
         this.message.createdAt !== null &&
         this.message.createdAt !== undefined
-      ) { return this.$dateFns.format(this.message.createdAt, 'EEEE dd MMM, HH:mm') }
+      ) {
+        if (this.$i18n.locale === 'fr') {
+          return this.$dateFns.format(
+            this.message.createdAt, 'EEEE dd MMM, HH:mm', { locale: 'fr' },
+          )
+        }
+
+        return this.$dateFns.format(
+          this.message.createdAt, 'EEEE, MMM dd, hh:mm a',
+        )
+      }
 
       return ''
     }

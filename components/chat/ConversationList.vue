@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="font-bold text-20 p-3">
-      Messages
+      {{ this.$t('chat.messages') }}
     </div>
     <div class="bg-white">
       <ul>

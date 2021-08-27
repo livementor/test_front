@@ -46,7 +46,7 @@ export default {
     '@nuxt/typescript-build',
     [
       '@nuxtjs/date-fns', {
-        locales: ['fr', 'en'],
+        locales: ['fr', 'enUS'],
         defaultLocale: 'fr',
       },
     ],

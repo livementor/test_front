@@ -20,6 +20,7 @@
     "start": "Start"
   },
   "chat": {
+    "messages": "Messages",
     "noConversation": "No selected conversation",
     "undefinedTitle": "Undefined Title"
   }

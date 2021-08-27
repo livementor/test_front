@@ -3,7 +3,7 @@
        style="background-image: url(/chat_wallpaper_1920x1080.png)"
   >
     <ConversationHeader
-      :id="currentRoot"
+      :id="conversationId"
     />
     <div id="messages"
          class="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch"
@@ -27,11 +27,11 @@ export default class Conversations extends Vue {
   @Getter('messages/getMessagesForConversation') getMessages: any
 
   messages: Array<Message> = []
-  currentRoot: string = ''
+  conversationId: string = ''
 
   @Watch('$route.params.id', { immediate: true })
   onIdParamChanged (id: any, _: any) {
-    this.currentRoot = id
+    this.conversationId = id
 
     if (id !== null && id !== undefined && id !== '') {
       this.$store.dispatch('messages/fetchMessagesForConversation', id)

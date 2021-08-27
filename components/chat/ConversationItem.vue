@@ -14,7 +14,7 @@
           {{ title }}
         </p>
         <p class="text-gray-600">
-          Aug 18
+          {{ lastMessage }}
         </p>
       </div>
     </NuxtLink>
@@ -28,6 +28,7 @@ import { Conversation } from '~/models/conversation'
 @Component
 export default class ConversationItem extends Vue {
   @Prop() readonly conversation: Conversation | undefined
+  lastMessage = '...'
 
   get id (): string {
     if (
