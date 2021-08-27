@@ -47,7 +47,7 @@ export default class ConversationItem extends Vue {
       this.conversation.title !== ''
     ) { return this.conversation.title }
 
-    return 'Undefined Title'
+    return this.$t('chat.undefinedTitle') + ''
   }
 }
 </script>

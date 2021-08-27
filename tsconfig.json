@@ -29,6 +29,7 @@
       "@nuxt/types",
       "@nuxtjs/firebase",
       "@nuxtjs/date-fns",
+      "lodash",
     ]
   },
   "exclude": [

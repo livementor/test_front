@@ -31,7 +31,6 @@ export default class ConversationList extends Vue {
     if (!this.$fire.auth.currentUser) {
       return []
     }
-
     return this.getConversations
   }
 }
