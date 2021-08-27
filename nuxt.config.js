@@ -44,6 +44,13 @@ export default {
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
     '@nuxt/typescript-build',
+    [
+      '@nuxtjs/date-fns', {
+        locales: ['fr', 'enUS'],
+        defaultLocale: 'fr',
+      },
+    ],
+    'lodash',
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
