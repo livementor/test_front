@@ -3,10 +3,12 @@ import { NotificationType } from '@/models/notification'
 import { User } from '../models/user'
 
 export const state = () => ({
-  authUser: undefined,
 })
 
 export const getters = {
+  getUserById: state => (id) => {
+    return state[id]
+  },
 }
 
 export const mutations = {
@@ -53,5 +55,15 @@ export const actions = {
       store.dispatch('conversations/createConversation', { title: 'Conversation' }, { root: true })
       store.commit('CREATE_USER', { ref: doc.ref, user: { uid, email, displayName, photoURL } })
     }
+  },
+
+  async fetchUserById (store: any, userId) {
+    if (store[userId]) {
+      return
+    }
+
+    const doc = await (this as any).$fire.firestore.collection('users').doc(userId).get()
+    const userData = doc.data()
+    store.commit('SET_USER', { avatar: userData.photoURL, email: userData.email, id: userData.uid, name: userData.displayName, username: userData.displayName })
   },
 }

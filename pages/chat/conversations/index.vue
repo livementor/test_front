@@ -1,5 +1,5 @@
 <template>
-  <div />
+  <div>Select chat</div>
 </template>
 
 <script lang="ts">

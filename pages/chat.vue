@@ -1,12 +1,17 @@
 <template>
-  <div class="flex">
-    <div class="w-1/4">
-      <span class="font-bold text-24 mb-20">
-        Chat Layout
-      </span>
-      <ConversationList class="border" />
+  <div>
+    <span class="font-bold text-24 mb-20">
+      Chat Layout for user
+    </span>
+    <span class="font-bold text-14 mb-20">
+      {{ $store.state.authUser }}
+    </span>
+    <div class="flex">
+      <div class="w-1/4">
+        <ConversationList class="border" />
+      </div>
+      <NuxtChild class="w-2/4" />
     </div>
-    <NuxtChild class="w-3/4" />
   </div>
 </template>
 
