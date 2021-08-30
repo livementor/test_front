@@ -29,7 +29,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { Message } from '~/models/message'
+import { Message } from '@/models/message'
 
 @Component
 export default class MessageCard extends Vue {

@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
+    "build:a": "nuxt build --analyze",
     "start": "nuxt start",
     "generate": "nuxt generate"
   },

@@ -1,5 +1,5 @@
 import { vuexfireMutations } from 'vuexfire'
-import { INotification } from '~/models/notification'
+import { INotification } from '@/models/notification'
 
 export interface IState {
   locale: string

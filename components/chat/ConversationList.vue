@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="font-bold text-20 p-3">
-      {{ this.$t('chat.messages') }}
+      {{ $t('chat.messages') }}
     </div>
     <div class="bg-white">
       <ul>
@@ -21,7 +21,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { Getter } from 'vuex-class'
-import { Conversation } from '~/models/conversation'
+import { Conversation } from '@/models/conversation'
 
 @Component
 export default class ConversationList extends Vue {

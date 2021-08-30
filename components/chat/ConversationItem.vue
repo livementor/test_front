@@ -23,7 +23,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { Conversation } from '~/models/conversation'
+import { Conversation } from '@/models/conversation'
 
 @Component
 export default class ConversationItem extends Vue {

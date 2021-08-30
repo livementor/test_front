@@ -20,7 +20,7 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import { Getter } from 'vuex-class'
-import { Message } from '~/models/message'
+import { Message } from '@/models/message'
 
 @Component
 export default class Conversations extends Vue {
