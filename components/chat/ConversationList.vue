@@ -18,7 +18,7 @@ import { Getter } from 'vuex-class'
 @Component
 export default class ConversationList extends Vue {
   getOpponentId = (participants: any[]) => {
-    return _.find(participants, participant => participant !== this.$store.state.authUser)
+    return _.find(participants, (participant: string) => participant !== this.$store.state.authUser)
   }
 
   @Getter('conversations/getConversations') getConversations:any
@@ -37,8 +37,8 @@ export default class ConversationList extends Vue {
 
   @Watch('$store.state.conversations')
   onConversationsUpdated () {
-    _.map(this.conversations, conversation => {
-      _.map(conversation.participants, userId => this.$store.dispatch('users/fetchUserById', userId))
+    _.map(this.conversations, (conversation) => {
+      _.map(conversation.participants, (userId: string) => this.$store.dispatch('users/fetchUserById', userId))
     })
   }
 }

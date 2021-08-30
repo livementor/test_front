@@ -5,7 +5,9 @@
     </span>
     <div v-if="currentroute !== 'no route'">
       <div v-for="(message, index) in conversationsMessages(currentroute)" :key="index" class="message-container">
-        <p class="author">{{ opponent(message.author) && opponent(message.author).name ? opponent(message.author).name : 'You' }}</p>
+        <p class="author">
+          {{ opponent(message.author) && opponent(message.author).name ? opponent(message.author).name : 'You' }}
+        </p>
         <p>{{ message.text }}</p>
       </div>
     </div>
@@ -30,19 +32,18 @@ export default class Conversations extends Vue {
   }
 
   @Watch('$route')
-  onPropertyChanged (value: any, _: any) {
+  onPropertyChanged () {
     this.currentroute = this.$route.params.id
   }
 
   @Getter('users/getUserById') getUserById:any
-  opponent (opponentId) {
+  opponent (opponentId: string) {
     return this.getUserById(opponentId)
   }
 
   @Getter('messages/getMessagesForConversation') getMessagesForConversation:any
   @Watch('$store.state.messages', { immediate: true })
   conversationsMessages (conversationID: string) {
-    // console.log('1', this.getMessagesForConversation(conversationID))
     return this.getMessagesForConversation(conversationID)
   }
 }
