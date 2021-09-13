@@ -2,7 +2,9 @@
   <div>
     <HeaderComponent />
     <GlobalNotification v-if="getNotification !== undefined" :notification="getNotification" />
-    <Nuxt />
+    <v-container fluid>
+      <Nuxt />
+    </v-container>
   </div>
 </template>
 

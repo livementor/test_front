@@ -4,21 +4,24 @@
     "logout": "Log out"
   },
   "login": {
-    "welcome": "Bienvenue sur le test technique front de Livementor",
-    "default": "Veuillez créer un compte ou vous connecter",
-    "login": "Connectez-vous",
-    "register": "Crée votre compte",
+    "welcome": "Welcome to the Livementor front-end technical test",
+    "default": "Please create an account or login",
+    "login": "Sign in",
+    "register": "Create Account",
     "loginButton": "Log in",
     "registerButton": "Sign up",
     "passwordPlaceholder": "password",
     "emailPlaceholder": "email"
   },
   "home": {
-    "description": "Le test est simple il suffit de créer une messagerie qui permettra à deux personnes de communiquer. Suivant le niveau de difficulté vous devrez réaliser plus ou moins de chose. Nous fournissons au sein de ce projet la connexion à la base de donnée. C'est une base de donnée firebase les identifiants sont déjà renseignés. Le module firebase et vuexfire sont déjà installé.",
-    "welcome": "Bienvenue",
+    "description": "The test is simple, you just have to create a messaging system that will allow two people to communicate. Depending on the level of difficulty you will have to do more or less. We provide within this project the connection to the database. It is a firebase database, the identifiers are already filled in. The firebase module and vuexfire are already installed.",
+    "welcome": "Welcome",
     "start": "Start"
   },
   "chat": {
-    "noConversation": "Pas de conversation sélécitonnée"
+    "noSelectedConversation": "Pas de conversation sélectionnée",
+    "noConversation": "No conversation",
+    "noMessage": "No message in this conversation yet",
+    "usersChoice": "Users choice"
   }
 }

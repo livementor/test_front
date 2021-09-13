@@ -1,24 +1,40 @@
+import colors from 'vuetify/es5/util/colors'
+
 export default {
   // Disable server-side rendering (https://go.nuxtjs.dev/ssr-mode)
   ssr: false,
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    title: 'test-lm-1',
+    titleTemplate: '%s - Livementor',
+    title: 'Chat',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1',
+      },
+      {
+        hid: 'description',
+        name: 'description',
+        content: '',
+      },
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://d1myxu64ohxs53.cloudfront.net/mikado/edge/css/mikado.min.css' },
+      {
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: '/favicon.ico',
+      },
+      {
+        rel: 'stylesheet',
+        href: 'https://d1myxu64ohxs53.cloudfront.net/mikado/edge/css/mikado.min.css',
+      },
     ],
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
-  css: [
-  ],
+  css: [],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
@@ -44,6 +60,8 @@ export default {
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
     '@nuxt/typescript-build',
+    '@nuxtjs/vuetify',
+    'lodash',
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -76,7 +94,12 @@ export default {
       },
     ],
   ],
-  // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {
+
+  // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
+  vuetify: {
+    customVariables: ['~/assets/variables.scss'],
   },
+
+  // Build Configuration (https://go.nuxtjs.dev/config-build)
+  build: {},
 }

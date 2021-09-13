@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { NotificationType } from '@/models/notification'
-import { User } from '../models/user'
+import { User } from '~/models/user'
 
 export const state = () => ({
   authUser: undefined,
@@ -23,6 +23,11 @@ export const mutations = {
   },
   SET_AUTH_USER (state: any, id: string) {
     state.authUser = id
+  },
+  CREATE_USER (state: any, payload: any) {
+    const { ref, user } = payload
+    ref.set(user)
+    Vue.set(state, user.uid, user)
   },
   LOGOUT_USER (state: any) {
     delete state[state.authUser]

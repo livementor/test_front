@@ -26,6 +26,11 @@
 import { NotificationType } from '@/models/notification'
 
 export default {
+  head () {
+    return {
+      title: 'Login'
+    }
+  },
   data: () => {
     return {
       email: '',

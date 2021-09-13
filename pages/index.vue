@@ -17,8 +17,15 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
+import { MetaInfo } from 'vue-meta'
 
-@Component
+@Component({
+  head (): MetaInfo {
+    return {
+      title: 'Bienvenue',
+    }
+  },
+})
 export default class Home extends Vue {
 }
 

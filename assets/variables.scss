@@ -1,0 +1,41 @@
+// Ref: https://github.com/nuxt-community/vuetify-module#customvariables
+//
+// The variables you want to modify
+// $font-size-root: 20px;
+
+@font-face {
+    font-family: 'FuturaPTBold';
+    src: url('~assets/futura-pt-bold.otf');
+}
+
+// Fonts
+$font-main: 'FuturaPTBold';
+
+// Colors
+$color-main: #f7c948;
+
+body {
+  font-family: $font-main;
+}
+
+.v-btn {
+  background-color: $color-main !important;
+}
+
+#page-chat-conversation-new {
+  .v-input--is-label-active, .v-input--is-focused {
+    legend {
+      width: 85px !important;
+    }
+  }
+
+  .messages-window {
+    overflow-y: auto;
+    height: calc(100vh - 316px)
+  }
+}
+
+.menu-title {
+  font-family: $font-main;
+  height: 64px;
+}
