@@ -1,18 +1,18 @@
 <template>
   <div class="mainContainer">
-    <div class="appBar">
+    <div v-if="currentroot !== 'no route'" class="appBar">
       <div>
-        <span>Nom :</span>
+        <span>Nom : {{ messages.author }}</span>
       </div>
       <div>
         <span>Date :</span>
       </div>
     </div>
     <div class="box">
-      <div v-if="currentroot !== 'no route'">
-        <div v-for="(message, index) in conversationsMessages(currentroot)" :key="index" class="message-container">
+      <div>
+        <div v-for="(message, index) in messages" :key="index" class="message-container">
           <p class="author">
-            {{ message.author && message.author.name ? message.author.name : 'You' }}
+            {{ message.author }}
           </p>
           <p>{{ message.text }}</p>
         </div>
@@ -31,13 +31,25 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator'
+import { Getter } from 'vuex-class'
 
 @Component
 export default class Conversations extends Vue {
+  @Getter('messages/getMessagesForConversation') getMessages: any
+  messages = []
   currentroot = 'no route'
-  @Watch('$route')
+
+  @Watch('$route', { immediate: true })
   onPropertyChanged (value: any, _: any) {
     this.currentroot = value.params.id
+    if (this.currentroot !== null && this.currentroot !== undefined && this.currentroot !== '') {
+      this.$store.dispatch('messages/fetchMessagesForConversation', this.currentroot)
+        .then(
+          () => {
+            this.messages = this.getMessages(this.currentroot)
+          },
+        )
+    }
   }
 }
 </script>
