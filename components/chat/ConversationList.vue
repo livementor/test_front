@@ -1,9 +1,9 @@
 <template>
   <div>
     <span>Conversations ids</span>
-    <div v-for="(id, index) in conversationsIds" :key="index">
-      <NuxtLink :to="`/chat/conversations/${id}`" class="text-blue-livementor">
-        {{ id }}
+    <div v-for="(item, index) in conversations" :key="index">
+      <NuxtLink :to="`/chat/conversations/${item.id}`" class="text-blue-livementor">
+        {{ item.id }}
       </NuxtLink>
     </div>
   </div>
@@ -17,11 +17,15 @@ import { Getter } from 'vuex-class'
 export default class ConversationList extends Vue {
   @Getter('conversations/getConversations') getConversations:any
 
-  get conversationsIds () {
+  mounted () {
+    console.log(this.getConversations)
+  }
+
+  get conversations () {
     if (!this.$fire.auth.currentUser) {
       return []
     }
-    return Object.keys(this.getConversations)
+    return this.getConversations
   }
 }
 </script>
