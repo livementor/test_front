@@ -17,6 +17,7 @@
     "eslint-plugin-nuxt": "^2.0.0",
     "firebase": "^8.1.1",
     "lodash": "^4.17.21",
+    "moment": "^2.29.1",
     "nuxt": "^2.14.6",
     "nuxt-property-decorator": "^2.8.8",
     "ts-loader": "^8.0.11",

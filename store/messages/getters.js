@@ -14,7 +14,4 @@ export default {
       ['asc'],
     )
   },
-  getMessageById: state => (id) => {
-    return state[id]
-  },
 }

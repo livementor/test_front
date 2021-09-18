@@ -1,18 +1,10 @@
 <template>
   <div class="mainContainer">
-    <div v-if="currentroot !== 'no route'" class="appBar">
-      <div>
-        <span>Nom : {{ messages.author }}</span>
-      </div>
-      <div>
-        <span>Date :</span>
-      </div>
-    </div>
     <div class="box">
       <div>
         <div v-for="(message, index) in messages" :key="index" class="message-container">
           <p class="author">
-            {{ message.author }}
+            {{ message.author }} - {{ convertDate(message.createdAt) }}
           </p>
           <p>{{ message.text }}</p>
         </div>
@@ -20,10 +12,12 @@
     </div>
     <div class="messageBox">
       <div class="inputMessage">
-        <span><input type="text" placeholder="Votre message"></span>
+        <span><input v-model="currentMessage" type="text" placeholder="Votre message"></span>
       </div>
       <div>
-        <button>Envoyer</button>
+        <button @click="sendMessage()">
+          Envoyer
+        </button>
       </div>
     </div>
   </div>
@@ -32,21 +26,49 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import { Getter } from 'vuex-class'
+import moment from 'moment'
+moment.locale('fr')
 
 @Component
 export default class Conversations extends Vue {
   @Getter('messages/getMessagesForConversation') getMessages: any
+
   messages = []
   currentroot = 'no route'
+  currentMessage = ''
+
+  convertDate (date) {
+    return moment(date).format('llll')
+  }
+
+  sendMessage () {
+    if (this.currentMessage !== '') {
+      this.$store.dispatch('messages/createMessage',
+        {
+          conversationId: this.currentroot,
+          message: {
+            id: '',
+            text: this.currentMessage,
+            createdAt: Date.now(),
+            author: 'Edwin',
+          },
+        }).then(() => this.fetchMessages())
+    }
+  }
 
   @Watch('$route', { immediate: true })
   onPropertyChanged (value: any, _: any) {
     this.currentroot = value.params.id
+    this.fetchMessages()
+  }
+
+  fetchMessages () {
     if (this.currentroot !== null && this.currentroot !== undefined && this.currentroot !== '') {
       this.$store.dispatch('messages/fetchMessagesForConversation', this.currentroot)
         .then(
           () => {
             this.messages = this.getMessages(this.currentroot)
+            this.currentMessage = ''
           },
         )
     }
