@@ -1,23 +1,21 @@
 <template>
   <div class="mainContainer">
-    <div class="box">
-      <div v-if="messages">
-        <div v-for="(message, index) in messages" :key="index" class="message-container">
-          <p class="author">
-            {{ message.author }} - {{ convertDate(message.createdAt) }}
+    <div v-if="messages" class="boxContainer">
+      <div v-for="(el, index) in messages" :key="index" class="message-container">
+        <div :class="el.author === $fire.auth.currentUser.uid ? 'message-container-auth' : 'message-container-user' ">
+          <p v-if="el.author && el.text" class="author">
+            {{ el.author === $fire.auth.currentUser.uid ? 'moi' : el.author }} - {{ convertDate(el.createdAt) }}
           </p>
-          <p>{{ message.text }}</p>
+          <p>{{ el.text }}</p>
         </div>
       </div>
     </div>
-    <div class="messageBox">
+    <div class="messageBox bg-blue-livementor">
       <div class="inputMessage">
         <span><input v-model="currentMessage" type="text" placeholder="Votre message"></span>
       </div>
-      <div>
-        <button @click="sendMessage()">
-          Envoyer
-        </button>
+      <div class="sendButton">
+        <Button :text="$t('Envoyer')" @click.native="sendMessage" />
       </div>
     </div>
   </div>
@@ -28,7 +26,6 @@ import { Component, Vue, Watch } from 'vue-property-decorator'
 import { Getter } from 'vuex-class'
 import moment from 'moment'
 moment.locale('fr')
-
 @Component
 export default class Conversations extends Vue {
   @Getter('messages/getMessagesForConversation') getMessages: any
@@ -49,7 +46,6 @@ export default class Conversations extends Vue {
           message: {
             id: this.$fire.auth.currentUser.uid,
             text: this.currentMessage,
-            createdAt: Date.now(),
             author: this.$fire.auth.currentUser.uid,
           },
         }).then(() => this.fetchMessages())
@@ -70,6 +66,7 @@ export default class Conversations extends Vue {
         .then(
           () => {
             this.messages = this.getMessages(this.currentroot)
+            this.currentMessage = ''
           },
         )
     }
@@ -77,24 +74,43 @@ export default class Conversations extends Vue {
 }
 </script>
 
-<style scoped>
+<style scoped lang="css">
  .mainContainer{
-   background-color: green;
    min-height: 100vh;
+   background-color: white;
+   border-left: 1px solid lightgrey;
+
  }
- .box{
-   height: 80%;
-   background-color: blue;
-   flex: 1
+ .boxContainer{
+   padding: 10px;
  }
  .messageBox{
-   height: 5%;
-   background-color: purple;
+   height: 10%;
    position: fixed;
    bottom: 0;
    width: 100%;
    display: flex;
    align-items: center;
+ }
+ .message-container{
+   width: 100%;
+   padding: 10px;
+ }
+ .message-container-auth{
+   background-color: #248bf5;
+   border-radius: 30px 30px 30px 30px;
+   margin-left: auto;
+   width: 50%;
+   padding: 20px;
+ }
+ .message-container-auth p{
+   color: white;
+ }
+ .message-container-user{
+   background-color: #e5e5ea;
+   border-radius: 30px 30px 30px 30px;
+   padding: 20px;
+   width: 50%;
  }
  input{
    width: 100%;
@@ -102,18 +118,17 @@ export default class Conversations extends Vue {
  }
  .inputMessage{
    width: 50%;
-   height: 100%
+   height: 100%;
+   padding: 15px;
+ }
+ .sendButton{
+   position: relative;
+   right:0;
  }
  span {
    display: block;
    overflow: hidden;
    padding-right:10px;
    height: 100%;
- }
- button{
-   background-color: yellow;
-   padding: 5%;
-   border-radius: 10px;
-
  }
 </style>

@@ -1,10 +1,13 @@
 <template>
   <div>
-    <span>Conversations ids</span>
     <div v-for="(item, index) in conversations" :key="index">
-      <NuxtLink :to="`/chat/conversations/${item.id}`" class="text-blue-livementor">
-        {{ item.title }}
-      </NuxtLink>
+      <div class="containerList">
+        <NuxtLink :to="`/chat/conversations/${item.id}`">
+          <div v-for="(participant , j) in item.participants" :key="j">
+            <p>{{ participant === $fire.auth.currentUser.uid ? null : participant }}</p>
+          </div>
+        </NuxtLink>
+      </div>
     </div>
   </div>
 </template>
@@ -25,3 +28,10 @@ export default class ConversationList extends Vue {
   }
 }
 </script>
+
+<style scoped>
+.containerList{
+  border: 1px solid black
+}
+
+</style>

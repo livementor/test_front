@@ -11,9 +11,7 @@ import { Component, Vue } from 'vue-property-decorator'
 export default class ConversationGenerate extends Vue {
   generateConv () {
     this.$store.dispatch('conversations/createConversation', {
-      id: '',
       participants: ['7HC4ypqlMgb5o9N5vNmo8kvwGZ02', 'bmAaBLtmpHYqHDOH875oVsVNbhV2'],
-      title: 'Conversation B',
     })
   }
 }
