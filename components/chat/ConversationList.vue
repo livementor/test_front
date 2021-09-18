@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="conversations">
     <div v-for="(item, index) in conversations" :key="index">
       <div class="containerList">
         <NuxtLink :to="`/chat/conversations/${item.id}`">

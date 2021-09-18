@@ -29,10 +29,25 @@ moment.locale('fr')
 @Component
 export default class Conversations extends Vue {
   @Getter('messages/getMessagesForConversation') getMessages: any
-
   messages = []
-  currentroot = 'no route'
   currentMessage = ''
+
+  @Watch('$route.params.id', { immediate: true })
+  onPropertyChanged (id: any, _: any) {
+    this.fetchMessages(id)
+  }
+
+  fetchMessages (id) {
+    if (id !== null && id !== undefined && id !== '') {
+      this.$store.dispatch('messages/fetchMessagesForConversation', id)
+        .then(
+          () => {
+            this.messages = this.getMessages(id)
+            this.currentMessage = ''
+          },
+        )
+    }
+  }
 
   convertDate (date) {
     return moment(date).format('llll')
@@ -42,33 +57,13 @@ export default class Conversations extends Vue {
     if (this.currentMessage !== '') {
       this.$store.dispatch('messages/createMessage',
         {
-          conversationId: this.currentroot,
+          conversationId: this.$route.params.id,
           message: {
             id: this.$fire.auth.currentUser.uid,
             text: this.currentMessage,
             author: this.$fire.auth.currentUser.uid,
           },
-        }).then(() => this.fetchMessages())
-    }
-  }
-
-  @Watch('$route', { immediate: true })
-  onPropertyChanged (value: any, _: any) {
-    this.currentroot = value.params.id
-    this.messages = []
-    this.currentMessage = ''
-    this.fetchMessages()
-  }
-
-  fetchMessages () {
-    if (this.currentroot !== null && this.currentroot !== undefined && this.currentroot !== '') {
-      this.$store.dispatch('messages/fetchMessagesForConversation', this.currentroot)
-        .then(
-          () => {
-            this.messages = this.getMessages(this.currentroot)
-            this.currentMessage = ''
-          },
-        )
+        }).then(() => this.fetchMessages(this.$route.params.id))
     }
   }
 }

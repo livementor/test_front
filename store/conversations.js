@@ -57,7 +57,6 @@ export const actions = {
 
 export const getters = {
   getConversations: (state) => {
-    console.log(state)
     return state
   },
 
