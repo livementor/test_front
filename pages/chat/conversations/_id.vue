@@ -1,7 +1,7 @@
 <template>
   <div class="mainContainer">
     <div class="box">
-      <div>
+      <div v-if="messages">
         <div v-for="(message, index) in messages" :key="index" class="message-container">
           <p class="author">
             {{ message.author }} - {{ convertDate(message.createdAt) }}
@@ -47,10 +47,10 @@ export default class Conversations extends Vue {
         {
           conversationId: this.currentroot,
           message: {
-            id: '',
+            id: this.$fire.auth.currentUser.uid,
             text: this.currentMessage,
             createdAt: Date.now(),
-            author: 'Edwin',
+            author: this.$fire.auth.currentUser.uid,
           },
         }).then(() => this.fetchMessages())
     }
@@ -59,6 +59,8 @@ export default class Conversations extends Vue {
   @Watch('$route', { immediate: true })
   onPropertyChanged (value: any, _: any) {
     this.currentroot = value.params.id
+    this.messages = []
+    this.currentMessage = ''
     this.fetchMessages()
   }
 
@@ -68,7 +70,6 @@ export default class Conversations extends Vue {
         .then(
           () => {
             this.messages = this.getMessages(this.currentroot)
-            this.currentMessage = ''
           },
         )
     }
@@ -80,13 +81,6 @@ export default class Conversations extends Vue {
  .mainContainer{
    background-color: green;
    min-height: 100vh;
- }
- .appBar{
-   position: sticky;
-   border-bottom: 1px solid black;
-   width: 100%;
-   background-color: red;
-   height: 10%
  }
  .box{
    height: 80%;

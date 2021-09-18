@@ -4,6 +4,7 @@
       <span class="font-bold text-24 mb-20">
         Chat Layout
       </span>
+      <ConversationGenerate class="border" />
       <ConversationList class="border" />
     </div>
     <NuxtChild class="w-3/4" />
@@ -12,7 +13,6 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator'
-
 @Component
 export default class Chat extends Vue {
   @Watch('$store.state.authUser', { immediate: true })

@@ -3,7 +3,7 @@
     <span>Conversations ids</span>
     <div v-for="(item, index) in conversations" :key="index">
       <NuxtLink :to="`/chat/conversations/${item.id}`" class="text-blue-livementor">
-        {{ item.id }}
+        {{ item.title }}
       </NuxtLink>
     </div>
   </div>
