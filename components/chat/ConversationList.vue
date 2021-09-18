@@ -1,9 +1,9 @@
 <template>
   <div v-if="conversations">
     <div v-for="(item, index) in conversations" :key="index">
-      <div class="containerList">
+      <div :class="item.id === currentRoot ? 'containerListActive' : 'containerList'">
         <NuxtLink :to="`/chat/conversations/${item.id}`">
-          <div v-for="(participant , j) in item.participants" :key="j">
+          <div v-for="(participant , j) in item.participants" :key="j" class="list">
             <p>{{ participant === $fire.auth.currentUser.uid ? null : participant }}</p>
           </div>
         </NuxtLink>
@@ -13,12 +13,18 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import {Component, Vue, Watch} from 'vue-property-decorator'
 import { Getter } from 'vuex-class'
 
 @Component
 export default class ConversationList extends Vue {
+  currentRoot = ''
   @Getter('conversations/getConversations') getConversations:any
+  @Watch('$route.params.id', { immediate: true })
+  onPropertyChanged (id: any, _: any) {
+    this.currentRoot = id
+  }
+
 
   get conversations () {
     if (!this.$fire.auth.currentUser) {
@@ -31,7 +37,20 @@ export default class ConversationList extends Vue {
 
 <style scoped>
 .containerList{
-  border: 1px solid black
+  border-bottom: 1px solid lightgrey;
+  padding: 10px;
+}
+.containerListActive{
+  background-color: darkgrey;
+  padding: 10px;
+  color: white;
+}
+.list{
+  padding: 5px;
+}
+.containerList:hover{
+  background-color: darkgrey;
+  color: white;
 }
 
 </style>

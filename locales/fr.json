@@ -19,6 +19,10 @@
     "start": "Start"
   },
   "chat": {
-    "noConversation": "Pas de conversation sélécitonnée"
+    "noConversation": "Pas de conversation sélécitonnée",
+    "placeholderMessage": "Votre message",
+    "sendButton": "Envoyer",
+    "myMessages": "Vous",
+    "appBar": "Conversation avec : "
   }
 }
