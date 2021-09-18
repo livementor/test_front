@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue, Watch} from 'vue-property-decorator'
+import { Component, Vue, Watch } from 'vue-property-decorator'
 import { Getter } from 'vuex-class'
 
 @Component
@@ -24,7 +24,6 @@ export default class ConversationList extends Vue {
   onPropertyChanged (id: any, _: any) {
     this.currentRoot = id
   }
-
 
   get conversations () {
     if (!this.$fire.auth.currentUser) {
@@ -41,7 +40,7 @@ export default class ConversationList extends Vue {
   padding: 10px;
 }
 .containerListActive{
-  background-color: darkgrey;
+  background-color: rgba(65, 132, 223, 1);
   padding: 10px;
   color: white;
 }
@@ -49,7 +48,7 @@ export default class ConversationList extends Vue {
   padding: 5px;
 }
 .containerList:hover{
-  background-color: darkgrey;
+  background-color: rgba(65, 132, 223, 0.4);
   color: white;
 }
 

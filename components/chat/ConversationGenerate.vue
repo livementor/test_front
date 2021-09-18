@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <Button :text="$t('generate')" @click.native="generateConv" />
-  </div>
+  <button @click="generateConv">
+    <img src="/add.png" width="23" height="23" alt="button_add" title="button_add">
+  </button>
 </template>
 
 <script>
@@ -16,7 +16,9 @@ export default class ConversationGenerate extends Vue {
   }
 }
 </script>
-
-<style scoped>
-
+<style lang="css">
+ img:hover{
+   background-color: #e5e5ea;
+   border-radius: 30px;
+ }
 </style>

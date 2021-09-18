@@ -1,10 +1,16 @@
 <template>
   <div class="flex">
     <div class="w-1/4">
-      <span class="font-bold text-24 mb-20">
-        Messages
-      </span>
-      <ConversationGenerate class="border" />
+      <div class="flex items-center mb-10">
+        <div>
+          <span class="font-bold text-24">
+            Messages
+          </span>
+        </div>
+        <div class="ml-5">
+          <ConversationGenerate />
+        </div>
+      </div>
       <ConversationList class="border" />
     </div>
     <NuxtChild class="w-3/4" />
