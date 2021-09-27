@@ -1,14 +1,12 @@
 <template>
   <div>
     <span>
-      Conversation séléctionnée: {{ conversationId }}
+      <span v-if="conversation" class="text-2xl">{{ conversation.title }}</span>
+      <span>( {{ conversationId }} )</span>
     </span>
 
     <div v-for="message in messages" :key="message.id" class="message">
-      <div class="message-date">
-        {{ message.prettyDate }}
-      </div>
-      <p>{{ message.text }}</p>
+      <Message :message="message" />
     </div>
 
     <div class="message-input w-3/4">
@@ -32,6 +30,8 @@ export default class Conversations extends Vue {
   sending = false;
 
   @Getter('messages/getMessagesForConversation') getMessages: any
+  @Getter('conversations/getConversation') getConversation: any
+  @Getter('users/getUser') getUser: any
 
   @Watch('conversationId', { immediate: true })
   onPropertyChanged (newValue: any, oldValue: any) {
@@ -44,12 +44,17 @@ export default class Conversations extends Vue {
     return this.$route.params.id
   }
 
+  get conversation () {
+    return this.getConversation(this.conversationId)
+  }
+
   async refreshMessages () {
     await this.$store.dispatch('messages/fetchMessagesForConversation', this.conversationId)
 
     this.messages = this.getMessages(this.conversationId)?.map((message: Message) => {
       const prettyDate = new Date(message.createdAt).toLocaleString()
-      return { ...message, prettyDate }
+      const user = this.getUser(message.author)
+      return { ...message, prettyDate, user }
     })
   }
 
@@ -66,20 +71,6 @@ export default class Conversations extends Vue {
 </script>
 
 <style scoped>
-.message {
-  background-color: #fff;
-  border-radius: 6px;
-  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.02);
-  color: #4a4a4a;
-  display: block;
-  padding: 1rem;
-  margin: 1rem;
-}
-
-.message .message-date {
-  font-size: 0.8rem;
-}
-
 .message-input {
   position: absolute;
   bottom: 0;

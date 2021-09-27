@@ -4,9 +4,13 @@ import { User } from '../models/user'
 
 export const state = () => ({
   authUser: undefined,
+  users: {},
 })
 
 export const getters = {
+  getUser: (state: any) => {
+    return (id: string) => state.users[id]
+  },
 }
 
 export const mutations = {
@@ -18,8 +22,8 @@ export const mutations = {
       Vue.set(this, user.id, user)
     }
   },
-  SET_USER (user: User) {
-    Vue.set(this, user.id, user)
+  SET_USER (state: any, user: User) {
+    state.users[user.id] = user
   },
   SET_AUTH_USER (state: any, id: string) {
     state.authUser = id
@@ -51,5 +55,12 @@ export const actions = {
       store.dispatch('conversations/createConversation', { title: 'Conversation' }, { root: true })
       doc.ref.set({ uid, email, displayName, photoURL })
     }
+  },
+
+  async fetchAllUsers (store : any) {
+    const ref = await (this as any).$fire.firestore.collection('users').get()
+    ref.docs.forEach((user: any) => {
+      store.commit('SET_USER', { id: user.id, ...user.data() })
+    })
   },
 }

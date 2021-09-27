@@ -19,6 +19,7 @@ export default class Chat extends Vue {
   onChange (value: any) {
     if (value !== null && value !== undefined && value !== '') {
       this.$store.dispatch('conversations/fetchConversationsForCurrentUser')
+      this.$store.dispatch('users/fetchAllUsers')
     }
   }
 }
