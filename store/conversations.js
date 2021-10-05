@@ -18,11 +18,11 @@ export const mutations = {
 }
 
 export const actions = {
-  createConversation (conversation) {
+  createConversation (store, conversation) {
     if (!this.$fire.auth.currentUser) {
       return
     }
-    const ref = this.$fire.firestore.collection('conversations').doc()
+    const ref = this.$fire.firestore.collection('conversations').doc(store.conversationId)
     conversation.participants = [this.$fire.auth.currentUser.uid, 'bmAaBLtmpHYqHDOH875oVsVNbhV2']
     conversation.id = ref.id
     ref.set(conversation)
