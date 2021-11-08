@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="d-flex justify-content-center align-items-center">
     {{ $t('chat.noConversation') }}
   </div>
 </template>
@@ -13,3 +13,9 @@ export default class ChatRoot extends Vue {
 
 }
 </script>
+
+<style scoped>
+  div {
+    background: #ececec;
+  }
+</style>

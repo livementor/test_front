@@ -12,7 +12,7 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://d1myxu64ohxs53.cloudfront.net/mikado/edge/css/mikado.min.css' },
+      { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css' },
     ],
   },
 
@@ -44,6 +44,7 @@ export default {
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
     '@nuxt/typescript-build',
+    '@nuxtjs/moment',
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
