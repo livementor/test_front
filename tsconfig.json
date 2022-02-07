@@ -28,6 +28,7 @@
       "@types/node",
       "@nuxt/types",
       "@nuxtjs/firebase",
+      "@nuxtjs/dayjs"
     ]
   },
   "exclude": [

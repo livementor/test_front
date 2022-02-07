@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { NotificationType } from '@/models/notification'
-import { User } from '../models/user'
+import { User } from '@/models/user'
 
 export const state = () => ({
   authUser: undefined,

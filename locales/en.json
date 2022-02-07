@@ -19,6 +19,8 @@
     "start": "Start"
   },
   "chat": {
-    "noConversation": "Pas de conversation sélécitonnée"
+    "messages": "Posts",
+    "noConversation": "Pas de conversation sélécitonnée",
+    "name": "Name"
   }
 }

@@ -1,4 +1,5 @@
-import _ from 'lodash'
+import orderBy from 'lodash/orderBy'
+import pick from 'lodash/pick'
 
 export default {
   getMessagesForConversation: (state, __, rootState) => (
@@ -8,8 +9,9 @@ export default {
       return null
     }
     const conversation = rootState.conversations[conversationId]
-    return _.orderBy(
-      Object.values(_.pick(state, conversation.messages)),
+
+    return orderBy(
+      Object.values(pick(state, conversation.messages)),
       ['created_at'],
       ['asc'],
     )

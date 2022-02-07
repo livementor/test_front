@@ -11,6 +11,8 @@ module.exports = {
   plugins: ['vue'],
   // add your custom rules here
   rules: {
+    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-extra-parens': 2, // https: //eslint.org/docs/rules/no-extra-parens
     curly: 2, // https: //eslint.org/docs/rules/curly
     eqeqeq: 2, // https: //eslint.org/docs/rules/eqeqeq

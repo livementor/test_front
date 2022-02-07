@@ -49,6 +49,7 @@ export default {
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
     [
+
       '@nuxtjs/firebase',
       {
         config: {
@@ -75,7 +76,17 @@ export default {
         },
       },
     ],
+    ['@nuxtjs/dayjs'],
   ],
+  dayjs: {
+    locales: ['en', 'fr'],
+    defaultLocale: 'fr',
+    defaultTimeZone: 'Paris/Europe',
+    plugins: [
+      'utc',
+      'timezone',
+    ],
+  },
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
   },
