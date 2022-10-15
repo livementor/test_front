@@ -27,7 +27,9 @@
     "types": [
       "@types/node",
       "@nuxt/types",
+      "@nuxtjs/dayjs",
       "@nuxtjs/firebase",
+      "dayjs/plugin/relativeTime",
     ]
   },
   "exclude": [

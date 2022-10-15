@@ -33,7 +33,10 @@ export const actions = {
   },
 
   async fetchConversations () {
-    const ref = await this.$fire.firestore.collection('conversations').get()
+    const ref = await this.$fire.firestore
+      .collection('conversations')
+      .where('participants', 'array-contains', this.$fire.auth.currentUser.uid)
+      .get()
 
     ref.docs.forEach((conversation) => {
       this.commit('conversations/SET_CONVERSATION', { id: conversation.id, conversation: conversation.data() })
@@ -56,5 +59,7 @@ export const getters = {
   getConversations: (state) => {
     return state
   },
-
+  getConversationById: state => (id) => {
+    return state[id]
+  },
 }
